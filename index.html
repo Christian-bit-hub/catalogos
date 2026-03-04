@@ -236,11 +236,11 @@ canvas{display:block}
   .btn-tb-search .btn-tb-search-txt{display:none}
   .btn-tb-search{padding:0 7px;height:26px;gap:0;min-width:26px;justify-content:center}
   /* Page area */
-  .page-area{padding:6px 2px}
+  .page-area{padding:6px 2px;overflow:visible}
   /* Setas laterais */
-  .side-btn{width:24px;height:40px;font-size:15px;opacity:.65;z-index:5}
-  #btn-prev-s{left:0;border-radius:0 5px 5px 0}
-  #btn-next-s{right:0;border-radius:5px 0 0 5px}
+  .side-btn{width:36px;height:64px;font-size:22px;font-weight:700;opacity:.85;z-index:10;background:rgba(90,58,42,.75);backdrop-filter:blur(4px);border-radius:8px}
+  #btn-prev-s{left:0;border-radius:0 8px 8px 0}
+  #btn-next-s{right:0;border-radius:8px 0 0 8px}
   /* Cart panel full width */
   #cart-panel{width:100%;right:-100%;border-radius:0}
   #cart-panel.open{right:0}
@@ -475,7 +475,7 @@ canvas{display:block}
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 emailjs.init('F59m7bx-Dc63S4zwl');
 var CART_IMG_D='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiByeT0iMjIiIGZpbGw9IiNDMDM5MkIiLz4KICA8ZyBmaWxsPSJ3aGl0ZSI+CiAgICA8IS0tIEFsw6dhIC0tPgogICAgPHJlY3QgeD0iMTgiIHk9IjI4IiB3aWR0aD0iMTAiIGhlaWdodD0iNiIgcng9IjMiLz4KICAgIDxyZWN0IHg9IjI1IiB5PSIyOCIgd2lkdGg9IjYiIGhlaWdodD0iMjAiIHJ4PSIzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAyOCAzNSkiLz4KICAgIDwhLS0gQ29ycG8gZG8gY2FycmluaG8gLS0+CiAgICA8cGF0aCBkPSJNMzQgMzggTDcyIDM4IEw2NyA2MiBMMzggNjIgWiIgcng9IjQiLz4KICAgIDwhLS0gUm9kYXMgLS0+CiAgICA8Y2lyY2xlIGN4PSI0MyIgY3k9IjcwIiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSI2MiIgY3k9IjcwIiByPSI2Ii8+CiAgPC9nPgo8L3N2Zz4=';
-var HOTSPOTS_D={"5":[{"id":"h_1772656475626","name":"ESTOJO BOX AMARELO","price":39.99,"unit":"un","sku":"31859","multiple":1,"size":32,"cx":0.37893864013267,"cy":0.3675373134328358},{"id":"h_1772656498693","name":"ESTOJO BOX CEREJA","price":39.99,"unit":"un","sku":"31863","multiple":1,"size":32,"cx":0.8316749585406302,"cy":0.6498756218905472},{"id":"h_1772656521623","name":"ESTOJO BOX ROSA CHICLETE","price":39.99,"unit":"un","sku":"33274","multiple":1,"size":32,"cx":0.4087893864013267,"cy":0.9247512437810945}]};
+var HOTSPOTS_D={"5":[{"id":"h_1772657890366","name":"ESTOJO BOX AMARELO","price":39.99,"unit":"un","sku":"31859","multiple":1,"size":32,"cx":0.3744038155802861,"cy":0.37544696066746125},{"id":"h_1772657915403","name":"ESTOJO BOX CEREJA","price":39.99,"unit":"un","sku":"31863","multiple":1,"size":32,"cx":0.8370429252782193,"cy":0.6543504171632897},{"id":"h_1772657944002","name":"ESTOJO BOX ROSA CHICLETE","price":39.99,"unit":"un","sku":"33274","multiple":1,"size":32,"cx":0.40143084260731315,"cy":0.9308700834326579},{"id":"h_1772657972892","name":"ESTOJO BOX MAGENTA","price":39.99,"unit":"un","sku":"31853","multiple":1,"size":32,"cx":0.8322734499205087,"cy":0.929678188319428}]};
 var PDF_FILENAME='Catálogo_Vini_Forte.pdf';
 var vPdf,vCurPage=1,vTotalPages=0,vRendering=false,vModalProduct=null,vCartItems=[],vSelectedSeller="";
 function showErr(msg){var l=document.getElementById("v-loading");if(l)l.style.display="none";var el=document.getElementById("vb-err");if(!el){el=document.createElement("div");el.id="vb-err";el.style.cssText="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#8b3a30;color:#fff;padding:14px 28px;border-radius:8px;font-size:13px;z-index:9999;max-width:90%;text-align:center;";document.body.appendChild(el);}el.innerHTML=msg;el.style.display="block";}
@@ -583,8 +583,10 @@ function vDrawHs(){
     el.id='v-hs-'+h.id;
     var sz=h.size||28;
     el.style.width=sz+'px';el.style.height=sz+'px';
-    el.style.left=(h.cx*cv.width-sz/2)+'px';
-    el.style.top=(h.cy*cv.height-sz/2)+'px';
+    var cssW=parseInt(cv.style.width)||cv.width;
+    var cssH=parseInt(cv.style.height)||cv.height;
+    el.style.left=(h.cx*cssW-sz/2)+'px';
+    el.style.top=(h.cy*cssH-sz/2)+'px';
     // Icon
     var icon=document.createElement('span');icon.className='hs-icon';
     icon.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
