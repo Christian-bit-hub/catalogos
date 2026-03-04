@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Catálogo Vini Forte — Catálogo</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>.hs:hover{transform:scale(1.15) translateY(-1px);box-shadow:0 5px 14px rgba(0,0,0,.38)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bar:#7a6a5a;--bar-dark:#6a5a4a;--bar-muted:#b0a090;
+  --white:#ffffff;--bg:#f0ebe3;--border:#e8e0d8;
+  --sans:'Montserrat',sans-serif;--serif:'Playfair Display',serif
+}
+body{font-family:var(--sans);background:var(--bg);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+/* ── Topbar ── */
+.topbar{height:42px;background:var(--bar);display:flex;align-items:center;padding:0 16px;gap:0;flex-shrink:0;position:relative;z-index:20}
+.tb-logo{font-family:var(--sans);font-size:10.5px;font-style:normal;font-weight:700;color:rgba(255,255,255,.88);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;flex-shrink:0}
+.tb-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:1px;pointer-events:auto}
+.tb-divider{width:1px;height:18px;background:rgba(255,255,255,.18);flex-shrink:0;margin:0 3px}
+.tb-icon-btn{width:32px;height:32px;background:none;border:none;color:rgba(255,255,255,.65);display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:3px;transition:color .15s,background .15s;flex-shrink:0}
+.tb-icon-btn:hover{color:rgba(255,255,255,.95);background:rgba(255,255,255,.1)}
+.tb-icon-btn:disabled{opacity:.28;cursor:default}
+.tb-page{display:flex;align-items:center;gap:4px;color:rgba(255,255,255,.7);font-family:var(--sans);font-size:12px}
+.tb-page input{width:30px;text-align:center;background:none;border:none;border-bottom:1px solid rgba(255,255,255,.3);color:#fff;font-family:var(--sans);font-size:12px;padding:1px 0;-moz-appearance:textfield;outline:none}
+.tb-page input::-webkit-outer-spin-button,.tb-page input::-webkit-inner-spin-button{-webkit-appearance:none}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:6px}
+.btn-tb-search{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;background:none;border:1px solid rgba(255,255,255,.3);border-radius:3px;color:rgba(255,255,255,.75);font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.08em;cursor:pointer;transition:border-color .15s,color .15s,background .15s;white-space:nowrap;text-transform:uppercase}
+.btn-tb-search:hover{border-color:rgba(255,255,255,.6);color:#fff;background:rgba(255,255,255,.07)}
+/* Search overlay */
+#search-overlay{position:fixed;inset:0;z-index:800;display:flex;align-items:flex-start;justify-content:center;padding-top:80px;opacity:0;pointer-events:none;transition:opacity .22s}
+#search-overlay.open{opacity:1;pointer-events:auto}
+.search-backdrop{position:absolute;inset:0;background:rgba(30,20,10,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);cursor:pointer}
+.search-box{position:relative;background:var(--white);border-radius:8px;width:100%;max-width:520px;box-shadow:0 12px 48px rgba(0,0,0,.24);overflow:hidden;transform:translateY(-12px);transition:transform .22s cubic-bezier(.16,1,.3,1)}
+#search-overlay.open .search-box{transform:translateY(0)}
+.search-header{background:var(--bar);padding:14px 18px;display:flex;align-items:center;gap:10px}
+.search-header svg{flex-shrink:0;opacity:.8}
+.search-input{flex:1;background:none;border:none;color:var(--white);font-family:var(--sans);font-size:14px;font-weight:500;outline:none;placeholder-color:rgba(255,255,255,.5)}
+.search-input::placeholder{color:rgba(255,255,255,.45)}
+.search-close{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:3px;color:#fff;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:background .13s}
+.search-close:hover{background:rgba(255,255,255,.25)}
+.search-results{max-height:360px;overflow-y:auto}
+.search-results::-webkit-scrollbar{width:4px}
+.search-results::-webkit-scrollbar-thumb{background:#d0c8bc;border-radius:2px}
+.search-empty{padding:32px 20px;text-align:center;color:#a09080;font-size:13px}
+.search-item{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
+.search-item:last-child{border-bottom:none}
+.search-item:hover{background:#faf6f1}
+.si-ico{width:34px;height:34px;background:#f5ede4;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.si-ico img{width:20px;height:20px;object-fit:contain}
+.si-info{flex:1;min-width:0}
+.si-name{font-size:13px;font-weight:600;color:#2a1f14;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.si-meta{font-size:11px;color:var(--bar-muted);margin-top:2px}
+.si-page{font-size:11px;color:var(--bar);font-weight:700;flex-shrink:0;background:#f5ede4;padding:3px 8px;border-radius:20px;white-space:nowrap}
+
+/* ── Page area ── */
+.page-area{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
+.pdf-wrap{position:relative;box-shadow:0 4px 32px rgba(0,0,0,.18)}
+canvas{display:block}
+.hs-layer{position:absolute;inset:0;pointer-events:none}
+.hs{position:absolute;cursor:pointer;pointer-events:auto;user-select:none;transition:transform .13s,box-shadow .13s,background .4s;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#c0392b 0%,#96281b 100%);border-radius:50%;box-shadow:0 2px 7px rgba(0,0,0,.32);border:1.5px solid rgba(255,255,255,.22)}
+.hs-img{display:none}.hs-icon{width:20px;height:20px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}.hs-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;pointer-events:none;line-height:1.2}
+.hs:hover .hs-img{transform:scale(1.12);filter:drop-shadow(0 4px 12px rgba(0,0,0,.45))}
+
+/* ── Side nav ── */
+.side-btn{position:fixed;top:50%;transform:translateY(-50%);width:36px;height:56px;background:rgba(122,106,90,.7);border:none;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;z-index:10;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.side-btn:hover{background:rgba(106,90,74,.9)}
+.side-btn:disabled{opacity:.2;cursor:not-allowed}
+#btn-prev-s{left:0;border-radius:0 4px 4px 0}
+#btn-next-s{right:0;border-radius:4px 0 0 4px}
+
+/* ── Product modal ── */
+#product-modal{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .22s}
+#product-modal.open{opacity:1;pointer-events:auto}
+.modal-backdrop{position:absolute;inset:0;background:rgba(30,20,10,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);cursor:pointer}
+.modal-box{position:relative;background:var(--white);border-radius:6px;width:100%;max-width:440px;box-shadow:0 8px 48px rgba(0,0,0,.22);overflow:hidden;transform:translateY(12px) scale(.98);transition:transform .22s cubic-bezier(.16,1,.3,1)}
+#product-modal.open .modal-box{transform:translateY(0) scale(1)}
+.modal-header{background:var(--bar);padding:16px 20px;display:flex;align-items:center;gap:12px}
+.modal-header-icon{width:38px;height:38px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.modal-product-name{font-size:15px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modal-product-code{font-size:11px;color:var(--bar-muted);margin-top:2px;font-family:monospace}
+.modal-close-x{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:4px;color:#fff;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;line-height:1;transition:background .13s;flex-shrink:0}
+.modal-close-x:hover{background:rgba(255,255,255,.25)}
+.modal-price-hero{background:#faf7f4;border-bottom:1px solid var(--border);padding:18px 20px;display:flex;align-items:flex-end;gap:20px}
+.price-block{flex:1}
+.modal-price-label,.modal-unit-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--bar-muted);margin-bottom:4px}
+.modal-price-value{font-size:32px;font-weight:700;color:#2a1f14;line-height:1;letter-spacing:-1px}
+.modal-price-value sup{font-size:16px;font-weight:600;vertical-align:super}
+.modal-unit-value{font-size:15px;font-weight:600;color:#5a4a3a}
+.modal-info-grid{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.modal-info-cell{padding:13px 20px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.modal-info-cell:nth-child(even){border-right:none}
+.modal-info-cell:nth-last-child(-n+2){border-bottom:none}
+.mic-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--bar-muted);margin-bottom:4px}
+.mic-value{font-size:13.5px;font-weight:600;color:#2a1f14}
+.modal-desc-wrap{padding:13px 20px;border-bottom:1px solid var(--border)}
+.modal-desc-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--bar-muted);margin-bottom:5px}
+.modal-desc-text{font-size:13px;color:#5a4a3a;line-height:1.6}
+.modal-qty-wrap{padding:16px 20px;background:#faf7f4;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.modal-qty-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--bar-muted);flex-shrink:0}
+.qty-controls{display:flex;align-items:center;background:var(--white);border:1px solid #d8cfc6;border-radius:4px;overflow:hidden}
+.qty-btn{width:34px;height:34px;background:none;border:none;cursor:pointer;font-size:18px;font-weight:500;color:#7a6a5a;display:flex;align-items:center;justify-content:center;transition:background .13s}
+.qty-btn:hover{background:#f0ebe4}
+.qty-btn:disabled{opacity:.3;cursor:not-allowed}
+.qty-inp{width:52px;height:34px;border:none;border-left:1px solid #d8cfc6;border-right:1px solid #d8cfc6;text-align:center;font-family:var(--sans);font-size:14px;font-weight:600;color:#2a1f14;background:var(--white);outline:none;-moz-appearance:textfield}
+.qty-inp::-webkit-outer-spin-button,.qty-inp::-webkit-inner-spin-button{-webkit-appearance:none}
+.qty-hint{font-size:10.5px;color:var(--bar-muted)}
+.modal-total-wrap{margin-left:auto;text-align:right}
+.modal-total-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--bar-muted);margin-bottom:2px}
+.modal-total-value{font-size:22px;font-weight:700;color:var(--bar-dark);letter-spacing:-.5px}
+.modal-footer{padding:14px 20px;display:flex;gap:10px}
+.btn-cancel{height:40px;padding:0 20px;background:none;border:1px solid #d8cfc6;border-radius:3px;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#8a7d70;cursor:pointer;transition:all .13s}
+.btn-cancel:hover{border-color:#b0a090;color:#4a3d30}
+.btn-add-cart{flex:1;height:40px;background:var(--bar);color:#fff;border:none;border-radius:3px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:background .13s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-add-cart:hover{background:var(--bar-dark)}
+
+/* ── Cart panel ── */
+#cart-panel{position:fixed;top:0;right:0;width:340px;height:100vh;background:var(--white);border-left:1px solid #ddd8d0;display:flex;flex-direction:column;z-index:400;box-shadow:-6px 0 32px rgba(60,40,20,.13);transform:translateX(105%);transition:transform .28s cubic-bezier(.16,1,.3,1)}
+#cart-panel.open{transform:translateX(0)}
+.cart-top{height:46px;background:var(--bar);display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0}
+.cart-top-title{flex:1;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--white)}
+.cart-count-badge{background:#c0392b;color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:20px;padding:0 5px;display:flex;align-items:center;justify-content:center}
+.cart-close-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:2px;color:#fff;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:background .13s}
+.cart-close-btn:hover{background:rgba(255,255,255,.22)}
+.cart-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;color:var(--bar-muted)}
+.cart-empty-ico{font-size:48px;opacity:.25;margin-bottom:14px}
+.cart-empty-txt{font-size:13px;line-height:1.65;color:#a09080}
+.cart-items{flex:1;overflow-y:auto;padding:10px 0;min-height:0}
+.cart-items::-webkit-scrollbar{width:4px}
+.cart-items::-webkit-scrollbar-thumb{background:#d0c8bc;border-radius:2px}
+.cart-item{display:flex;gap:11px;padding:12px 16px;border-bottom:1px solid var(--border);transition:background .12s;position:relative}
+.cart-item:last-child{border-bottom:none}
+.cart-item:hover{background:#faf7f4}
+.cart-item-ico{width:36px;height:36px;background:#f5ede4;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cart-item-ico img{width:22px;height:22px;object-fit:contain}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:13px;font-weight:600;color:#2a1f14;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.cart-item-meta{font-size:11px;color:var(--bar-muted);margin-bottom:7px}
+.ciq{display:flex;align-items:center;background:var(--white);border:1px solid #d8d0c8;border-radius:4px;overflow:hidden;width:fit-content}
+.ciq-btn{width:26px;height:26px;background:none;border:none;cursor:pointer;font-size:16px;font-weight:500;color:#7a6a5a;display:flex;align-items:center;justify-content:center;transition:background .12s;line-height:1}
+.ciq-btn:hover{background:#f0ebe4}
+.ciq-btn:disabled{opacity:.3;cursor:not-allowed}
+.ciq-val{width:34px;height:26px;border:none;border-left:1px solid #d8d0c8;border-right:1px solid #d8d0c8;text-align:center;font-family:var(--sans);font-size:12px;font-weight:600;color:#2a1f14;background:var(--white);outline:none;-moz-appearance:textfield}
+.ciq-val::-webkit-outer-spin-button,.ciq-val::-webkit-inner-spin-button{-webkit-appearance:none}
+.ci-subtotal{text-align:right;flex-shrink:0}
+.ci-price{font-size:13.5px;font-weight:700;color:var(--bar-dark);white-space:nowrap}
+.ci-unit{font-size:10.5px;color:var(--bar-muted);margin-top:2px;white-space:nowrap}
+.ci-remove{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;background:none;border:1px solid #e0d5c8;cursor:pointer;color:#b08070;border-radius:6px;transition:color .15s,background .15s,border-color .15s;margin-left:4px;align-self:center}
+.ci-remove:hover{color:#c0392b;background:#fdf0ee;border-color:#e0b0a8}
+.cart-summary{border-top:2px solid var(--border);padding:14px 16px 10px;background:#faf7f4;flex-shrink:0}
+.cart-sum-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#6a5a4a;padding:3px 0}
+.cart-sum-row.total{font-size:16px;font-weight:700;color:#2a1f14;margin-top:6px;padding-top:8px;border-top:1px solid var(--border)}
+.cart-sum-row.total span:last-child{color:var(--bar-dark)}
+.cart-footer{padding:12px 16px;display:flex;flex-direction:column;gap:8px;flex-shrink:0;border-top:1px solid var(--border)}
+.btn-finish{width:100%;height:42px;background:var(--bar);color:#fff;border:none;border-radius:3px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .13s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-finish:hover{background:var(--bar-dark)}
+.btn-finish:disabled{opacity:.4;cursor:not-allowed}
+.btn-clear{width:100%;height:36px;background:none;border:1px solid #d8d0c8;border-radius:3px;font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#a09080;cursor:pointer;transition:all .13s;display:flex;align-items:center;justify-content:center;gap:7px}
+.btn-clear:hover{border-color:#c0392b;color:#c0392b;background:#fdf8f8}
+
+/* ── Order modal ── */
+#order-modal{position:fixed;inset:0;z-index:700;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .22s}
+#order-modal.open{opacity:1;pointer-events:auto}
+.order-backdrop{position:absolute;inset:0;background:rgba(30,20,10,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);cursor:pointer}
+.order-box{position:relative;background:var(--white);border-radius:8px;width:100%;max-width:480px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 16px 60px rgba(0,0,0,.26);overflow:hidden;transform:translateY(14px) scale(.97);transition:transform .25s cubic-bezier(.16,1,.3,1)}
+#order-modal.open .order-box{transform:translateY(0) scale(1)}
+.order-header{background:var(--bar);padding:18px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.order-header-icon{width:38px;height:38px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.order-header-title{font-family:var(--serif);font-size:17px;font-style:italic;color:var(--white);flex:1}
+.order-close{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:3px;color:var(--white);width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:background .13s}
+.order-close:hover{background:rgba(255,255,255,.25)}
+.order-body{flex:1;overflow-y:auto;padding:20px}
+.order-body::-webkit-scrollbar{width:4px}
+.order-body::-webkit-scrollbar-thumb{background:#d0c8bc;border-radius:2px}
+.osec-label{font-size:10px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--bar-muted);margin:0 0 10px;display:flex;align-items:center;gap:6px}
+.osec-label::before{content:'';width:6px;height:6px;background:var(--bar);border-radius:50%;flex-shrink:0}
+.odivider{border:none;border-top:1px solid var(--border);margin:18px 0}
+.of{margin-bottom:12px}
+.of label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#a09080;margin-bottom:5px}
+.of input,.of textarea{width:100%;background:var(--white);border:1px solid #ddd6cc;border-radius:3px;padding:0 11px;font-family:var(--sans);font-size:13px;color:#2a1f14;outline:none;transition:border-color .13s,box-shadow .13s}
+.of input{height:38px}
+.of textarea{padding:10px 11px;resize:none;line-height:1.5}
+.of input:focus,.of textarea:focus{border-color:var(--bar);box-shadow:0 0 0 3px rgba(122,106,90,.1)}
+.of input::placeholder,.of textarea::placeholder{color:#c0b0a0}
+.of-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.of-row .of{margin-bottom:0}
+.seller-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:2px}
+.seller-btn{background:var(--white);border:1.5px solid #ddd6cc;border-radius:6px;padding:9px 6px;font-family:var(--sans);font-size:12px;font-weight:500;color:#5a4d40;cursor:pointer;transition:all .15s;text-align:center;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seller-btn:hover{border-color:var(--bar);color:var(--bar-dark);background:#faf6f1}
+.seller-btn.selected{border-color:var(--bar);border-width:2px;background:#f5ede4;color:var(--bar-dark);font-weight:700}
+.order-summary-box{background:#faf7f4;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.order-summary-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-bottom:1px solid var(--border);font-size:12.5px;gap:8px}
+.order-summary-item:last-child{border-bottom:none}
+.osi-left{flex:1;min-width:0}
+.osi-name{font-weight:600;color:#2a1f14;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.osi-meta{font-size:11px;color:var(--bar-muted);margin-top:1px}
+.osi-price{font-weight:700;color:var(--bar-dark);white-space:nowrap;flex-shrink:0}
+.order-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0 0;font-size:15px;font-weight:700;color:#2a1f14}
+.order-total-row span:last-child{color:var(--bar-dark)}
+.order-footer{padding:14px 20px;border-top:1px solid var(--border);background:#faf7f4;flex-shrink:0}
+.btn-send-order{width:100%;height:44px;background:#25D366;color:var(--white);border:none;border-radius:3px;font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:background .13s,transform .13s;display:flex;align-items:center;justify-content:center;gap:9px}
+.btn-send-order:hover{background:#1ebe5d;transform:translateY(-1px)}
+.btn-send-order:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-order-secondary{flex:1;height:36px;background:none;border:1px solid #d8d0c8;border-radius:3px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#7a6a5a;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
+.btn-order-secondary:hover{border-color:var(--bar);color:var(--bar-dark);background:#faf6f1}
+
+/* ── Toast ── */
+#vb-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#3d3028;color:#fff;padding:10px 20px;border-radius:4px;font-family:var(--sans);font-size:12.5px;font-weight:500;opacity:0;transition:all .25s;z-index:9999;white-space:nowrap;pointer-events:none;max-width:90vw}
+#vb-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#vb-toast.ok{background:#2d6a4f}
+#vb-toast.err{background:#922b21}
+
+/* ── Badge ── */
+@keyframes badgePop{0%{transform:scale(1)}40%{transform:scale(1.5)}70%{transform:scale(.88)}100%{transform:scale(1)}}
+.badge-pop{animation:badgePop .35s cubic-bezier(.36,.07,.19,.97)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hs.in-cart{background:linear-gradient(135deg,#27ae60 0%,#1e8449 100%) !important;}.hs.in-cart:hover{box-shadow:0 5px 14px rgba(39,174,96,.45)}.hs-label{display:none}.hs-icon{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-shrink:0}.hs-icon svg{width:55%;height:55%}.v-zoomed #v-page-area{overflow:auto}.v-zoomed-area{overflow:hidden}#v-pdf-wrap{will-change:transform}.hs-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(20,15,10,.88);color:#fff;font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:500;white-space:nowrap;padding:5px 9px;border-radius:5px;pointer-events:none;opacity:0;transition:opacity .18s;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.35);max-width:180px;overflow:hidden;text-overflow:ellipsis;}.hs-tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(20,15,10,.88);}.hs:hover .hs-tip{opacity:1}
+@media (max-width:600px){
+  /* Topbar: flat flex, sem absolute */
+  .topbar{height:44px;padding:0 6px;position:relative}
+  .tb-logo{display:none}
+  .tb-center{position:static;transform:none;flex:1;justify-content:center;gap:0;overflow:hidden}
+  .tb-right{flex-shrink:0;margin-left:0}
+  .tb-icon-btn{width:26px;height:26px;flex-shrink:0}
+  .tb-icon-btn svg{width:13px;height:13px}
+  .tb-divider{margin:0 1px;height:14px}
+  /* Esconder ícones menos essenciais no mobile */
+  .tb-icon-btn.tb-hide-mobile{display:none}
+  /* Page input menor */
+  .tb-page input{width:28px;font-size:11px}
+  .tb-page span{font-size:11px}
+  /* Botão pesquisar — só ícone no mobile */
+  .btn-tb-search .btn-tb-search-txt{display:none}
+  .btn-tb-search{padding:0 7px;height:26px;gap:0;min-width:26px;justify-content:center}
+  /* Page area */
+  .page-area{padding:6px 2px}
+  /* Setas laterais */
+  .side-btn{width:24px;height:40px;font-size:15px;opacity:.65;z-index:5}
+  #btn-prev-s{left:0;border-radius:0 5px 5px 0}
+  #btn-next-s{right:0;border-radius:5px 0 0 5px}
+  /* Cart panel full width */
+  #cart-panel{width:100%;right:-100%;border-radius:0}
+  #cart-panel.open{right:0}
+  /* Modals */
+  .modal-box{width:96vw;max-height:90vh;border-radius:14px}
+  .order-box{width:96vw;max-height:92vh;border-radius:14px;margin:4vh auto}
+  .of-row{flex-direction:column;gap:0}
+  .seller-grid{grid-template-columns:1fr 1fr}
+  /* Search */
+  .search-box{width:96vw;border-radius:12px}
+  /* Tooltip acima */
+  .hs-tip{font-size:9px;padding:4px 7px;max-width:130px}
+}</style>
+</head>
+<body>
+
+
+<div class="topbar">
+  <!-- Left: catalog title -->
+  <div class="tb-logo" id="v-cat-title">Catálogo</div>
+
+  <!-- Center: icons + navigation -->
+  <div class="tb-center">
+    <button class="tb-icon-btn" onclick="vDownloadPDF()" title="Baixar PDF" class="tb-icon-btn tb-hide-mobile">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    </button>
+    <button class="tb-icon-btn" onclick="vShareCatalog()" title="Compartilhar" class="tb-icon-btn tb-hide-mobile">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    </button>
+    <div class="tb-divider"></div>
+    <button class="tb-icon-btn" id="v-prev" onclick="vPrev()" disabled title="Página anterior">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="tb-page">
+      <input id="v-pg-in" type="number" min="1" value="1" onkeydown="if(event.key==='Enter')vGoPage(this.value)">
+      <span style="opacity:.5">/ <span id="v-total">—</span></span>
+    </div>
+    <button class="tb-icon-btn" id="v-next" onclick="vNext()" title="Próxima página">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="tb-divider"></div>
+    <div style="position:relative;display:inline-flex;">
+      <button class="tb-icon-btn" onclick="vOpenCart()" title="Carrinho">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      </button>
+      <span id="v-badge" style="display:none;position:absolute;top:-4px;right:-4px;background:#c0392b;color:#fff;font-family:var(--sans);font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:16px;padding:0 3px;align-items:center;justify-content:center;border:1.5px solid var(--bar);pointer-events:none;line-height:1;">0</span>
+    </div>
+
+  </div>
+
+  <!-- Right: search button -->
+  <div class="tb-right">
+    <button class="btn-tb-search" onclick="vOpenSearch()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Pesquisar
+    </button>
+  </div>
+</div>
+
+<div class="page-area" id="v-page-area">
+  <div class="pdf-wrap" id="v-pdf-wrap">
+    <canvas id="v-canvas"></canvas>
+    <div class="hs-layer" id="v-hs-layer"></div>
+  </div>
+</div>
+
+<button class="side-btn" id="btn-prev-s" onclick="vPrev()" disabled>‹</button>
+<button class="side-btn" id="btn-next-s" onclick="vNext()">›</button>
+
+<!-- ── Search Overlay ── -->
+<div id="search-overlay">
+  <div class="search-backdrop" onclick="vCloseSearch()"></div>
+  <div class="search-box">
+    <div class="search-header">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-input" id="v-search-input" type="text" placeholder="Pesquisar por código ou descrição..." oninput="vDoSearch(this.value)" autocomplete="off">
+      <button class="search-close" onclick="vCloseSearch()">×</button>
+    </div>
+    <div class="search-results" id="v-search-results">
+      <div class="search-empty">Digite para buscar produtos no catálogo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Product Modal ── -->
+<div id="product-modal">
+  <div class="modal-backdrop" onclick="vCloseModal()"></div>
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-header-icon"><img id="v-m-img" style="width:24px;height:24px;object-fit:contain"></div>
+      <div style="flex:1;min-width:0">
+        <div class="modal-product-name" id="v-m-name">—</div>
+        <div class="modal-product-code" id="v-m-code">—</div>
+      </div>
+      <button class="modal-close-x" onclick="vCloseModal()">×</button>
+    </div>
+    <div class="modal-price-hero">
+      <div class="price-block">
+        <div class="modal-price-label">Preço unitário</div>
+        <div class="modal-price-value"><sup>R$</sup><span id="v-m-price">0,00</span></div>
+      </div>
+      <div style="text-align:right">
+        <div class="modal-unit-label">Unidade</div>
+        <div class="modal-unit-value" id="v-m-unit">un</div>
+      </div>
+    </div>
+    <div class="modal-info-grid">
+      <div class="modal-info-cell"><div class="mic-label">Código do item</div><div class="mic-value" id="v-m-sku">—</div></div>
+      <div class="modal-info-cell"><div class="mic-label">Qtd. mínima</div><div class="mic-value" id="v-m-min">1</div></div>
+      <div class="modal-info-cell" style="grid-column:1/-1;border-right:none"><div class="mic-label">Múltiplo de venda</div><div class="mic-value" id="v-m-mult">1</div></div>
+    </div>
+    <div class="modal-desc-wrap"><div class="modal-desc-label">Descrição</div><div class="modal-desc-text" id="v-m-desc">—</div></div>
+    <div class="modal-qty-wrap">
+      <div class="modal-qty-label">Quantidade</div>
+      <div class="qty-controls">
+        <button class="qty-btn" id="v-q-minus" onclick="vChangeQty(-1)">−</button>
+        <input class="qty-inp" id="v-qty" type="number" value="1" oninput="vQtyInput()">
+        <button class="qty-btn" onclick="vChangeQty(1)">+</button>
+      </div>
+      <div class="qty-hint" id="v-qty-hint"></div>
+      <div class="modal-total-wrap">
+        <div class="modal-total-label">Total</div>
+        <div class="modal-total-value" id="v-m-total">R$ 0,00</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="vCloseModal()">Cancelar</button>
+      <button class="btn-add-cart" onclick="vAddToCart()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Adicionar ao Carrinho
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Cart Panel ── -->
+<div id="cart-panel">
+  <div class="cart-top">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <div class="cart-top-title">Carrinho</div>
+    <span class="cart-count-badge" id="v-cart-count">0</span>
+    <button class="cart-close-btn" onclick="vCloseCart()">×</button>
+  </div>
+  <div class="cart-empty" id="v-cart-empty">
+    <div class="cart-empty-ico">🛒</div>
+    <div class="cart-empty-txt">Seu carrinho está vazio.<br>Clique nos botões do catálogo para adicionar itens.</div>
+  </div>
+  <div class="cart-items" id="v-cart-items" style="display:none"></div>
+  <div id="v-cart-bot" style="display:none">
+    <div class="cart-summary">
+      <div class="cart-sum-row"><span>Itens</span><span id="v-sum-items">0</span></div>
+      <div class="cart-sum-row"><span>Subtotal</span><span id="v-sum-sub">R$ 0,00</span></div>
+      <div class="cart-sum-row total"><span>Total do pedido</span><span id="v-sum-total">R$ 0,00</span></div>
+    </div>
+    <div class="cart-footer">
+      <button class="btn-finish" onclick="vFinishOrder()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Finalizar Pedido
+      </button>
+      <button class="btn-clear" onclick="vClearCart()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        Limpar Carrinho
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Order Form Modal ── -->
+<div id="order-modal">
+  <div class="order-backdrop" onclick="vCloseOrderModal()"></div>
+  <div class="order-box">
+    <div class="order-header">
+      <div class="order-header-icon">📋</div>
+      <div class="order-header-title">Finalizar Pedido</div>
+      <button class="order-close" onclick="vCloseOrderModal()">×</button>
+    </div>
+    <div class="order-body">
+      <div class="osec-label">Dados do cliente</div>
+      <div class="of"><label>Nome completo *</label><input id="v-ord-name" type="text" placeholder="Ex: Maria Silva"></div>
+      <div class="of-row">
+        <div class="of"><label>Telefone / WhatsApp *</label><input id="v-ord-phone" type="tel" placeholder="(00) 00000-0000"></div>
+        <div class="of"><label>E-mail</label><input id="v-ord-email" type="email" placeholder="email@exemplo.com"></div>
+      </div>
+      <div class="of">
+        <label>Vendedor responsável</label>
+        <div class="seller-grid" id="v-seller-grid">
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Christian')">Christian</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Carlos')">Carlos</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Diego')">Diego</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Márcio')">Márcio</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Ana Televendas')">Ana Televendas</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Vinicius')">Vinicius</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Bruno')">Bruno</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Escritório')">Escritório</button>
+        </div>
+        <input type="hidden" id="v-ord-seller" value="">
+      </div>
+      <hr class="odivider">
+      <div class="osec-label">Resumo do pedido</div>
+      <div class="order-summary-box" id="v-ord-summary"></div>
+      <div class="order-total-row"><span>Total do pedido</span><span id="v-ord-total">R$ 0,00</span></div>
+      <hr class="odivider">
+      <div class="of"><label>Observações (opcional)</label><textarea id="v-ord-obs" rows="3" placeholder="Endereço de entrega, prazo, observações..."></textarea></div>
+    </div>
+    <div class="order-footer">
+      <button class="btn-send-order" id="v-btn-send" onclick="vSendOrder()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Enviar Pedido
+      </button>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn-order-secondary" onclick="vOrderBackToCart()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Voltar ao Carrinho
+        </button>
+        <button class="btn-order-secondary" onclick="vOrderClose()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="vb-toast"></div>
+<div id="v-loading" style="display:flex;position:fixed;inset:0;background:rgba(245,242,238,.92);z-index:500;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
+  <div style="width:40px;height:40px;border:3px solid #c8b99a;border-top-color:#7a6a5a;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+  <div style="font-size:13px;color:#7a6a5a;font-family:sans-serif;">Carregando catálogo...</div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+emailjs.init('F59m7bx-Dc63S4zwl');
+var CART_IMG_D='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiByeT0iMjIiIGZpbGw9IiNDMDM5MkIiLz4KICA8ZyBmaWxsPSJ3aGl0ZSI+CiAgICA8IS0tIEFsw6dhIC0tPgogICAgPHJlY3QgeD0iMTgiIHk9IjI4IiB3aWR0aD0iMTAiIGhlaWdodD0iNiIgcng9IjMiLz4KICAgIDxyZWN0IHg9IjI1IiB5PSIyOCIgd2lkdGg9IjYiIGhlaWdodD0iMjAiIHJ4PSIzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAyOCAzNSkiLz4KICAgIDwhLS0gQ29ycG8gZG8gY2FycmluaG8gLS0+CiAgICA8cGF0aCBkPSJNMzQgMzggTDcyIDM4IEw2NyA2MiBMMzggNjIgWiIgcng9IjQiLz4KICAgIDwhLS0gUm9kYXMgLS0+CiAgICA8Y2lyY2xlIGN4PSI0MyIgY3k9IjcwIiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSI2MiIgY3k9IjcwIiByPSI2Ii8+CiAgPC9nPgo8L3N2Zz4=';
+var HOTSPOTS_D={"5":[{"id":"h_1772656475626","name":"ESTOJO BOX AMARELO","price":39.99,"unit":"un","sku":"31859","multiple":1,"size":32,"cx":0.37893864013267,"cy":0.3675373134328358},{"id":"h_1772656498693","name":"ESTOJO BOX CEREJA","price":39.99,"unit":"un","sku":"31863","multiple":1,"size":32,"cx":0.8316749585406302,"cy":0.6498756218905472},{"id":"h_1772656521623","name":"ESTOJO BOX ROSA CHICLETE","price":39.99,"unit":"un","sku":"33274","multiple":1,"size":32,"cx":0.4087893864013267,"cy":0.9247512437810945}]};
+var PDF_FILENAME='Catálogo_Vini_Forte.pdf';
+var vPdf,vCurPage=1,vTotalPages=0,vRendering=false,vModalProduct=null,vCartItems=[],vSelectedSeller="";
+function showErr(msg){var l=document.getElementById("v-loading");if(l)l.style.display="none";var el=document.getElementById("vb-err");if(!el){el=document.createElement("div");el.id="vb-err";el.style.cssText="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#8b3a30;color:#fff;padding:14px 28px;border-radius:8px;font-size:13px;z-index:9999;max-width:90%;text-align:center;";document.body.appendChild(el);}el.innerHTML=msg;el.style.display="block";}
+(async function(){var loadEl=document.getElementById('v-loading');if(loadEl)loadEl.style.display='flex';try{var resp=await fetch(PDF_FILENAME);if(!resp.ok)throw new Error('PDF nao encontrado.');var ab=await resp.arrayBuffer();vPdf=await pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise;vTotalPages=vPdf.numPages;document.getElementById('v-total').textContent=vTotalPages;document.getElementById('v-pg-in').max=vTotalPages;if(loadEl)loadEl.style.display='none';vSetTitle();vInitZoom();await vRender(1);}catch(e){showErr('Erro: '+e.message);console.error(e);}})();
+// ── Render ──────────────────────────────────────────────
+var vZoomed    = false;
+var vZoomFactor= 1.8;
+var vBaseScale = 1;
+
+// Pan state
+var vPan       = {x:0, y:0};
+var vDrag      = {active:false, startX:0, startY:0, panX:0, panY:0};
+
+async function vRender(n){
+  if(vRendering)return; vRendering=true;
+  vCurPage=Math.max(1,Math.min(n,vTotalPages));
+  document.getElementById('v-pg-in').value=vCurPage;
+  var p=vCurPage,t=vTotalPages;
+  document.getElementById('v-prev').disabled=p<=1;
+  document.getElementById('v-next').disabled=p>=t;
+  document.getElementById('btn-prev-s').disabled=p<=1;
+  document.getElementById('btn-next-s').disabled=p>=t;
+  var page=await vPdf.getPage(vCurPage);
+  var area=document.getElementById('v-page-area');
+  var aW=area.clientWidth||window.innerWidth;
+  var aH=area.clientHeight||(window.innerHeight-48);
+  vBaseScale=Math.min((aW-40)/page.getViewport({scale:1}).width,(aH-40)/page.getViewport({scale:1}).height);
+  // Always render at zoom resolution for crisp result
+  var dpr=window.devicePixelRatio||1;
+  var renderScale=vBaseScale*(vZoomed?vZoomFactor:1);
+  var vp=page.getViewport({scale:Math.max(renderScale,0.1)});
+  var cv=document.getElementById('v-canvas');
+  // Render at physical pixels for crisp display on retina/mobile screens
+  cv.width=vp.width*dpr; cv.height=vp.height*dpr;
+  cv.style.width=vp.width+'px'; cv.style.height=vp.height+'px';
+  var ctx=cv.getContext('2d');
+  ctx.scale(dpr,dpr);
+  await page.render({canvasContext:ctx,viewport:vp}).promise;
+  vApplyTransform();
+  vDrawHs();
+  vRendering=false;
+}
+
+function vApplyTransform(){
+  var wrap=document.getElementById('v-pdf-wrap');
+  if(!wrap)return;
+  if(vZoomed){
+    wrap.style.transform='translate('+vPan.x+'px,'+vPan.y+'px)';
+    wrap.style.cursor=vDrag.active?'grabbing':'grab';
+  } else {
+    wrap.style.transform='';
+    wrap.style.cursor='zoom-in';
+    vPan={x:0,y:0};
+  }
+}
+
+function vClampPan(){
+  // Clamp so user can't pan beyond the zoomed canvas bounds
+  var area=document.getElementById('v-page-area');
+  var wrap=document.getElementById('v-pdf-wrap');
+  if(!area||!wrap||!vZoomed)return;
+  var aW=area.clientWidth, aH=area.clientHeight;
+  var cW=wrap.offsetWidth,  cH=wrap.offsetHeight;
+  var maxX=Math.max(0,(cW-aW)/2);
+  var maxY=Math.max(0,(cH-aH)/2);
+  vPan.x=Math.max(-maxX,Math.min(maxX,vPan.x));
+  vPan.y=Math.max(-maxY,Math.min(maxY,vPan.y));
+}
+
+function vToggleZoom(mouseX, mouseY){
+  var area=document.getElementById('v-page-area');
+  var wrap=document.getElementById('v-pdf-wrap');
+  if(!area||!wrap)return;
+
+  if(!vZoomed){
+    vZoomed=true;
+    // Position of clicked point relative to wrap center
+    var wRect=wrap.getBoundingClientRect();
+    // Point clicked relative to canvas center
+    var relX=(mouseX-wRect.left)-wRect.width/2;
+    var relY=(mouseY-wRect.top)-wRect.height/2;
+    // Pan so the clicked point stays under the cursor after zoom
+    // The canvas grows by vZoomFactor, so offset = -rel * (factor-1)
+    vPan.x=-relX*(vZoomFactor-1);
+    vPan.y=-relY*(vZoomFactor-1);
+    vClampPan();
+    vRender(vCurPage);
+  } else {
+    vZoomed=false;
+    vPan={x:0,y:0};
+    vRender(vCurPage);
+  }
+}
+function vPrev(){if(vCurPage>1)vRender(vCurPage-1);}
+function vNext(){if(vCurPage<vTotalPages)vRender(vCurPage+1);}
+function vGoPage(v){var n=parseInt(v);if(n>=1&&n<=vTotalPages)vRender(n);}
+
+// ── Hotspots ──────────────────────────────────────────────
+function vDrawHs(){
+  var layer=document.getElementById('v-hs-layer'),cv=document.getElementById('v-canvas');
+  layer.innerHTML='';
+  (HOTSPOTS_D[vCurPage]||[]).forEach(function(h){
+    var el=document.createElement('div');
+    el.className='hs'+(vCartItems.some(function(ci){return ci.id===h.id;})?' in-cart':'');
+    el.id='v-hs-'+h.id;
+    var sz=h.size||28;
+    el.style.width=sz+'px';el.style.height=sz+'px';
+    el.style.left=(h.cx*cv.width-sz/2)+'px';
+    el.style.top=(h.cy*cv.height-sz/2)+'px';
+    // Icon
+    var icon=document.createElement('span');icon.className='hs-icon';
+    icon.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
+    el.appendChild(icon);
+    // Label
+    var lbl=document.createElement('span');lbl.className='hs-label';lbl.textContent=h.name;
+    el.appendChild(lbl);
+    // Tooltip
+    var tip=document.createElement('div');tip.className='hs-tip';
+    var tipText=h.name;
+    if(h.sku) tipText+=' · '+h.sku;
+    if(h.price) tipText+=' · R$ '+vFmt(h.price);
+    tip.textContent=tipText;
+    el.appendChild(tip);
+    el.addEventListener('click',function(){vOpenModal(h);});layer.appendChild(el);
+  });
+}
+
+// ── Modal ─────────────────────────────────────────────────
+function vFmt(v){return(+v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function vOpenModal(h){
+  vModalProduct=h;
+  var mult=parseInt(h.multiple)||1;
+  document.getElementById('v-m-img').src=CART_IMG_D;
+  document.getElementById('v-m-name').textContent=h.name||'—';
+  document.getElementById('v-m-code').textContent=h.sku?'Cód. '+h.sku:'Sem código';
+  document.getElementById('v-m-price').textContent=vFmt(h.price);
+  document.getElementById('v-m-unit').textContent=h.unit||'un';
+  document.getElementById('v-m-sku').textContent=h.sku||'—';
+  document.getElementById('v-m-min').textContent=mult+' '+(h.unit||'un');
+  document.getElementById('v-m-mult').textContent=mult+' '+(h.unit||'un');
+  document.getElementById('v-m-desc').textContent=h.desc||h.name||'—';
+  document.getElementById('v-qty-hint').textContent=mult>1?'Mín. '+mult+' · Múlt. de '+mult:'';
+  var qi=document.getElementById('v-qty');qi.value=mult;qi.min=mult;qi.step=mult;
+  document.getElementById('v-q-minus').disabled=true;
+  vUpdateTotal();
+  document.getElementById('product-modal').classList.add('open');
+}
+function vCloseModal(){document.getElementById('product-modal').classList.remove('open');vModalProduct=null;}
+function vChangeQty(d){
+  if(!vModalProduct)return;
+  var mult=parseInt(vModalProduct.multiple)||1;
+  var qi=document.getElementById('v-qty');
+  var v=(parseInt(qi.value)||mult)+d*mult;if(v<mult)v=mult;qi.value=v;
+  document.getElementById('v-q-minus').disabled=v<=mult;vUpdateTotal();
+}
+function vQtyInput(){
+  if(!vModalProduct)return;
+  var mult=parseInt(vModalProduct.multiple)||1;
+  var qi=document.getElementById('v-qty');
+  var v=parseInt(qi.value)||mult;v=Math.max(mult,Math.round(v/mult)*mult);qi.value=v;
+  document.getElementById('v-q-minus').disabled=v<=mult;vUpdateTotal();
+}
+function vUpdateTotal(){
+  if(!vModalProduct)return;
+  var qty=parseInt(document.getElementById('v-qty').value)||1;
+  document.getElementById('v-m-total').textContent='R$ '+vFmt(qty*(+vModalProduct.price||0));
+}
+
+// ── Cart ──────────────────────────────────────────────────
+function vAddToCart(){
+  if(!vModalProduct)return;
+  var qty=parseInt(document.getElementById('v-qty').value)||1;
+  var ex=vCartItems.find(function(c){return c.id===vModalProduct.id;});
+  if(ex){ex.qty+=qty;}
+  else{vCartItems.push({cartId:'ci_'+Date.now(),id:vModalProduct.id,name:vModalProduct.name,price:+vModalProduct.price||0,unit:vModalProduct.unit||'un',sku:vModalProduct.sku||'',multiple:parseInt(vModalProduct.multiple)||1,qty:qty});}
+  vUpdateBadge(true);vToast('\u2713 '+vModalProduct.name+' inserido no carrinho!','ok');// Mark all hotspot buttons for this product green
+  (HOTSPOTS_D[vCurPage]||[]).forEach(function(h){if(h.id===vModalProduct.id){var el=document.getElementById('v-hs-'+h.id);if(el)el.classList.add('in-cart');}});vCloseModal();vRenderCart();
+}
+function vCartTotal(){return vCartItems.reduce(function(s,i){return s+i.qty*i.price;},0);}
+function vCartTotalQty(){return vCartItems.reduce(function(s,i){return s+i.qty;},0);}
+function vUpdateBadge(anim){
+  var b=document.getElementById('v-badge'),t=document.getElementById('v-cart-count');
+  var n=vCartTotalQty();
+  if(n>0){b.textContent=n>99?'99+':n;b.style.display='flex';if(anim){b.classList.remove('badge-pop');void b.offsetWidth;b.classList.add('badge-pop');}}
+  else b.style.display='none';
+  if(t)t.textContent=n;
+}
+function vOpenCart(){vRenderCart();document.getElementById('cart-panel').classList.add('open');}
+function vCloseCart(){document.getElementById('cart-panel').classList.remove('open');}
+function vRenderCart(){
+  var list=document.getElementById('v-cart-items');
+  var empty=document.getElementById('v-cart-empty');
+  var bot=document.getElementById('v-cart-bot');
+  if(!vCartItems.length){
+    empty.style.display='flex';list.style.display='none';if(bot)bot.style.display='none';return;
+  }
+  empty.style.display='none';list.style.display='block';if(bot)bot.style.display='block';
+  list.innerHTML=vCartItems.map(function(item){
+    var d=item.qty<=item.multiple?' disabled':'';
+    var id=item.cartId;
+    return '<div class="cart-item">'
+      +'<div class="cart-item-ico"><img src="'+CART_IMG_D+'" alt=""></div>'
+      +'<div class="cart-item-info">'
+      +'<div class="cart-item-name">'+item.name+'</div>'
+      +'<div class="cart-item-meta">'+(item.sku?'Cód. '+item.sku+' · ':'')+item.unit+'</div>'
+      +'<div class="ciq">'
+      +'<button class="ciq-btn"'+d+' onclick="vChg(this)">−</button>'
+      +'<input class="ciq-val" type="number" value="'+item.qty+'" data-id="'+id+'" min="'+item.multiple+'" step="'+item.multiple+'" onchange="vSet(this)">'
+      +'<button class="ciq-btn" onclick="vChg(this,1)">+</button>'
+      +'</div></div>'
+      +'<div class="ci-subtotal">'
+      +'<div class="ci-price">R$ '+vFmt(item.qty*item.price)+'</div>'
+      +'<div class="ci-unit">R$ '+vFmt(item.price)+'/'+item.unit+'</div>'
+      +'</div>'
+      +'<button class="ci-remove" data-id="'+id+'" onclick="vRm(this)">&times;</button>'
+      +'</div>';
+  }).join('');
+  var tot=vCartTotalQty();
+  var total=vCartTotal();
+  document.getElementById('v-sum-items').textContent=tot+' '+(tot===1?'item':'itens');
+  document.getElementById('v-sum-sub').textContent='R$ '+vFmt(total);
+  document.getElementById('v-sum-total').textContent='R$ '+vFmt(total);
+}
+function vChg(btn,dir){
+  var inp=btn.closest('.cart-item').querySelector('.ciq-val');
+  var id=inp.dataset.id;
+  var item=vCartItems.find(function(x){return x.cartId===id;});
+  if(!item)return;
+  var d=(dir===undefined?-1:1);
+  var n=item.qty+d*item.multiple;
+  if(n<item.multiple)return;
+  item.qty=n;vUpdateBadge(false);vRenderCart();
+}
+function vSet(inp){
+  var id=inp.dataset.id;
+  var item=vCartItems.find(function(x){return x.cartId===id;});
+  if(!item)return;
+  var n=parseInt(inp.value)||item.multiple;
+  n=Math.max(item.multiple,Math.round(n/item.multiple)*item.multiple);
+  item.qty=n;vUpdateBadge(false);vRenderCart();
+}
+function vRm(btn){
+  var id=btn.dataset.id;
+  vCartItems=vCartItems.filter(function(x){return x.cartId!==id;});
+  vUpdateBadge(false);vRenderCart();
+}
+function vClearCart(){
+  if(!vCartItems.length)return;
+  if(!confirm('Limpar todos os itens do carrinho?'))return;
+  vCartItems=[];vUpdateBadge(false);vRenderCart();vToast('Carrinho limpo.','');
+  document.querySelectorAll('.hs.in-cart').forEach(function(el){el.classList.remove('in-cart');});
+}
+
+// ── Order modal ───────────────────────────────────────────
+function vFinishOrder(){
+  if(!vCartItems.length)return;
+  document.getElementById('v-ord-summary').innerHTML=vCartItems.map(function(i){
+    return '<div class="order-summary-item">'
+      +'<div class="osi-left"><div class="osi-name">'+i.name+'</div>'
+      +'<div class="osi-meta">'+(i.sku?'Cód. '+i.sku+' · ':'')+i.qty+' '+i.unit+'</div></div>'
+      +'<div class="osi-price">R$ '+vFmt(i.qty*i.price)+'</div>'
+      +'</div>';
+  }).join('');
+  document.getElementById('v-ord-total').textContent='R$ '+vFmt(vCartTotal());
+  ['v-ord-name','v-ord-phone','v-ord-email','v-ord-obs'].forEach(function(id){document.getElementById(id).value='';});
+  document.querySelectorAll('.seller-btn').forEach(function(b){b.classList.remove('selected');});
+  document.getElementById('v-ord-seller').value='';
+  vSelectedSeller='';
+  document.getElementById('order-modal').classList.add('open');
+  setTimeout(function(){document.getElementById('v-ord-name').focus();},120);
+}
+function vCloseOrderModal(){document.getElementById('order-modal').classList.remove('open');}
+function vOrderBackToCart(){vCloseOrderModal();setTimeout(function(){vOpenCart();},50);}
+function vOrderClose(){vCloseOrderModal();vCloseCart();}
+function vSelectSeller(btn,name){
+  document.querySelectorAll('.seller-btn').forEach(function(b){b.classList.remove('selected');});
+  btn.classList.add('selected');
+  document.getElementById('v-ord-seller').value=name;
+  vSelectedSeller=name;
+}
+async function vSendOrder(){
+  var name=document.getElementById('v-ord-name').value.trim();
+  var phone=document.getElementById('v-ord-phone').value.trim();
+  var clientEmail=document.getElementById('v-ord-email').value.trim();
+  var seller=document.getElementById('v-ord-seller').value;
+  var obs=document.getElementById('v-ord-obs').value.trim();
+  if(!name){document.getElementById('v-ord-name').focus();vToast('Informe o nome completo.','err');return;}
+  if(!phone){document.getElementById('v-ord-phone').focus();vToast('Informe o telefone.','err');return;}
+
+  var btn=document.getElementById('v-btn-send');
+  btn.disabled=true;
+  btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Enviando...';
+
+  // ── Montar conteúdo do pedido ──────────────────────────
+  var total='R$ '+vFmt(vCartTotal());
+
+  // Texto para WhatsApp
+  var itemsLines=vCartItems.map(function(i){
+    return '• '+i.name+(i.sku?' ['+i.sku+']':'')+' — '+i.qty+' '+i.unit+' x R$ '+vFmt(i.price)+' = R$ '+vFmt(i.qty*i.price);
+  }).join('\n');
+
+  // HTML para email — tabela de itens completa
+  var itemsHtml=''
+    +'<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:13px;">'
+    +'<thead><tr style="background:#7a6a5a;color:#fff;">'
+    +'<th style="padding:8px 12px;text-align:left;">Produto</th>'
+    +'<th style="padding:8px 12px;text-align:center;">SKU</th>'
+    +'<th style="padding:8px 12px;text-align:center;">Qtd</th>'
+    +'<th style="padding:8px 12px;text-align:right;">Unit.</th>'
+    +'<th style="padding:8px 12px;text-align:right;">Subtotal</th>'
+    +'</tr></thead><tbody>';
+  vCartItems.forEach(function(i,idx){
+    var bg=idx%2===0?'#ffffff':'#f5f2ee';
+    itemsHtml+='<tr style="background:'+bg+';">'
+      +'<td style="padding:7px 12px;border-bottom:1px solid #e8e0d8;">'+i.name+'</td>'
+      +'<td style="padding:7px 12px;border-bottom:1px solid #e8e0d8;text-align:center;">'+(i.sku||'—')+'</td>'
+      +'<td style="padding:7px 12px;border-bottom:1px solid #e8e0d8;text-align:center;">'+i.qty+' '+i.unit+'</td>'
+      +'<td style="padding:7px 12px;border-bottom:1px solid #e8e0d8;text-align:right;">R$ '+vFmt(i.price)+'</td>'
+      +'<td style="padding:7px 12px;border-bottom:1px solid #e8e0d8;text-align:right;font-weight:600;">R$ '+vFmt(i.qty*i.price)+'</td>'
+      +'</tr>';
+  });
+  itemsHtml+='<tr style="background:#f0ece6;">'
+    +'<td colspan="4" style="padding:9px 12px;text-align:right;font-weight:700;font-size:14px;">TOTAL</td>'
+    +'<td style="padding:9px 12px;text-align:right;font-weight:700;font-size:14px;color:#5a3a2a;">'+total+'</td>'
+    +'</tr></tbody></table>';
+
+  // Tabela HTML para excel_csv (SKU / Código + Quantidade)
+  var excelCsvHtml=''
+    +'<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:13px;">'
+    +'<thead><tr style="background:#7a6a5a;color:#fff;">'
+    +'<th style="padding:8px 16px;text-align:left;">SKU / Código</th>'
+    +'<th style="padding:8px 16px;text-align:right;">Quantidade</th>'
+    +'</tr></thead><tbody>';
+  vCartItems.forEach(function(i,idx){
+    var bg=idx%2===0?'#ffffff':'#f5f2ee';
+    excelCsvHtml+='<tr style="background:'+bg+';">'
+      +'<td style="padding:7px 16px;border-bottom:1px solid #e8e0d8;">'+(i.sku||i.name)+'</td>'
+      +'<td style="padding:7px 16px;border-bottom:1px solid #e8e0d8;text-align:right;">'+i.qty+'</td>'
+      +'</tr>';
+  });
+  excelCsvHtml+='</tbody></table>';
+
+  // ── 1. WhatsApp ────────────────────────────────────────
+  var waLinhas=['🛒 *Novo Pedido — Catálogo Vini Forte*',''];
+  waLinhas.push('👤 *Cliente:* '+name);
+  waLinhas.push('📱 *Telefone:* '+phone);
+  if(clientEmail) waLinhas.push('📧 *E-mail:* '+clientEmail);
+  if(seller) waLinhas.push('🧑 *Vendedor:* '+seller);
+  waLinhas.push('','📦 *Itens:*',itemsLines,'','💰 *Total: '+total+'*');
+  if(obs) waLinhas.push('📝 *Obs:* '+obs);
+  window.open('https://wa.me/?text='+encodeURIComponent(waLinhas.join('\n')),'_blank');
+
+  // ── 2. Email automático via EmailJS ───────────────────
+  try{
+    var templateParams={
+      to_email: 'christian@viniribeiro.com.br',
+      from_name: name,
+      client_name: name,
+      client_phone: phone,
+      client_email: clientEmail||'—',
+      seller: seller||'—',
+      items: itemsHtml,
+      total: total,
+      obs: obs||'—',
+      subject: 'Novo Pedido — '+name+' ('+phone+')',
+      excel_csv: excelCsvHtml
+    };
+    await emailjs.send('service_js75dhm','template_8ga0s1g',templateParams,'F59m7bx-Dc63S4zwl');
+    vToast('✓ Pedido enviado por WhatsApp e Email!','ok');
+  }catch(err){
+    console.error('EmailJS error:',err);
+    vToast('WhatsApp enviado. Falha no email: '+( err.text||err.message||'erro'), 'err');
+  }
+
+  // ── 3. Limpar e fechar ─────────────────────────────────
+  btn.disabled=false;
+  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Enviar Pedido';
+  vCloseOrderModal();vCloseCart();
+  vCartItems=[];vUpdateBadge(false);
+  document.querySelectorAll('.hs.in-cart').forEach(function(el){el.classList.remove('in-cart');});
+}
+
+// ── Phone mask ────────────────────────────────────────────
+document.addEventListener('input',function(e){
+  if(e.target.id!=='v-ord-phone')return;
+  var v=e.target.value.replace(/\D/g,'').substring(0,11);
+  if(v.length>6)v='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);
+  else if(v.length>2)v='('+v.slice(0,2)+') '+v.slice(2);
+  else if(v.length)v='('+v;
+  e.target.value=v;
+});
+
+// ── Toast ─────────────────────────────────────────────────
+var vToastTimer;
+function vToast(msg,type){
+  var t=document.getElementById('vb-toast');
+  t.textContent=msg;t.className='';if(type)t.classList.add(type);t.classList.add('show');
+  clearTimeout(vToastTimer);vToastTimer=setTimeout(function(){t.classList.remove('show');},2800);
+}
+
+// ── Keyboard ──────────────────────────────────────────────
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')vNext();
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')vPrev();
+  if(e.key==='Escape'){vCloseModal();vCloseCart();vCloseOrderModal();vCloseSearch();}
+});
+
+// ── Search ────────────────────────────────────────────────
+var vSearchHits=[];
+function vOpenSearch(){
+  document.getElementById('search-overlay').classList.add('open');
+  setTimeout(function(){document.getElementById('v-search-input').focus();},80);
+}
+function vCloseSearch(){
+  var ov=document.getElementById('search-overlay');if(!ov)return;
+  ov.classList.remove('open');
+  document.getElementById('v-search-input').value='';
+  document.getElementById('v-search-results').innerHTML='<div class="search-empty">Digite para buscar produtos no catalogo</div>';
+}
+function vDoSearch(q){
+  var res=document.getElementById('v-search-results');
+  q=(q||'').trim().toLowerCase();
+  if(!q){res.innerHTML='<div class="search-empty">Digite para buscar produtos no catalogo</div>';return;}
+  vSearchHits=[];
+  Object.entries(HOTSPOTS_D).forEach(function(entry){
+    var page=entry[0],btns=entry[1];
+    (btns||[]).forEach(function(h){
+      var t=(h.name||'').toLowerCase()+(h.sku||'').toLowerCase()+(h.desc||'').toLowerCase();
+      if(t.includes(q)) vSearchHits.push(Object.assign({},h,{_page:+page}));
+    });
+  });
+  if(!vSearchHits.length){
+    res.innerHTML='<div class="search-empty">Nenhum produto encontrado para <strong>'+q+'</strong></div>';return;
+  }
+  res.innerHTML=vSearchHits.map(function(h,i){
+    return '<div class="search-item" onclick="vSearchGoto('+i+')">'
+      +'<div class="si-ico"><img src="'+CART_IMG_D+'" alt=""></div>'
+      +'<div class="si-info">'
+      +'<div class="si-name">'+(h.name||'Sem nome')+'</div>'
+      +'<div class="si-meta">'+(h.sku?'Cód. '+h.sku+' · ':'')+'R$ '+vFmt(h.price)+' / '+(h.unit||'un')+'</div>'
+      +'</div>'
+      +'<div class="si-page">Pag. '+h._page+'</div>'
+      +'</div>';
+  }).join('');
+}
+function vSearchGoto(idx){
+  var h=vSearchHits[idx];if(!h)return;
+  vCloseSearch();
+  if(h._page===vCurPage){vOpenModal(h);}
+  else{vRender(h._page).then(function(){setTimeout(function(){vOpenModal(h);},250);});}
+}
+
+// ── Catalog title ────────────────────────────────────────
+function escV(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function vSetTitle(){
+  var el=document.getElementById('v-cat-title');
+  if(!el)return;
+  el.textContent=PDF_FILENAME.replace(/\.pdf$/i,'').replace(/_/g,' ').replace(/-/g,' ');
+}
+
+function vInitZoom(){
+  // Desabilitar zoom em dispositivos touch (mobile)
+  if('ontouchstart' in window || navigator.maxTouchPoints>0){return;}
+  var area=document.getElementById('v-page-area');
+  var wrap=document.getElementById('v-pdf-wrap');
+  if(!area||!wrap)return;
+  wrap.style.cursor='zoom-in';
+
+  var downX=0, downY=0, isDrag=false;
+
+  // ── Mousedown: registra posição inicial ───────────────
+  wrap.addEventListener('mousedown',function(e){
+    if(e.target.closest&&e.target.closest('.hs'))return;
+    e.preventDefault();
+    downX=e.clientX; downY=e.clientY; isDrag=false;
+    if(vZoomed){
+      vDrag={active:true,startX:e.clientX,startY:e.clientY,panX:vPan.x,panY:vPan.y};
+      wrap.style.cursor='grabbing';
+    }
+  });
+
+  // ── Mousemove: arrastar quando em zoom ────────────────
+  window.addEventListener('mousemove',function(e){
+    if(!vDrag.active)return;
+    var dx=e.clientX-downX, dy=e.clientY-downY;
+    if(Math.abs(dx)+Math.abs(dy)>4) isDrag=true;
+    vPan.x=vDrag.panX+(e.clientX-vDrag.startX);
+    vPan.y=vDrag.panY+(e.clientY-vDrag.startY);
+    vClampPan();
+    wrap.style.transform='translate('+vPan.x+'px,'+vPan.y+'px)';
+  });
+
+  // ── Mouseup: parar drag ───────────────────────────────
+  window.addEventListener('mouseup',function(e){
+    if(vDrag.active){
+      vDrag.active=false;
+      wrap.style.cursor=vZoomed?'grab':'zoom-in';
+    }
+  });
+
+  // ── Click: zoom in/out (só se não arrastou) ───────────
+  wrap.addEventListener('click',function(e){
+    if(e.target.closest&&e.target.closest('.hs'))return;
+    if(isDrag){isDrag=false;return;}
+    vToggleZoom(e.clientX,e.clientY);
+  });
+
+  // ── Touch ─────────────────────────────────────────────
+  var tStart={x:0,y:0,panX:0,panY:0};
+  wrap.addEventListener('touchstart',function(e){
+    if(e.touches.length!==1)return;
+    tStart={x:e.touches[0].clientX,y:e.touches[0].clientY,panX:vPan.x,panY:vPan.y};
+  },{passive:true});
+  wrap.addEventListener('touchmove',function(e){
+    if(!vZoomed||e.touches.length!==1)return;
+    e.preventDefault();
+    vPan.x=tStart.panX+(e.touches[0].clientX-tStart.x);
+    vPan.y=tStart.panY+(e.touches[0].clientY-tStart.y);
+    vClampPan();
+    wrap.style.transform='translate('+vPan.x+'px,'+vPan.y+'px)';
+  },{passive:false});
+  wrap.addEventListener('touchend',function(e){
+    if(e.changedTouches.length!==1)return;
+    var dx=Math.abs(e.changedTouches[0].clientX-tStart.x);
+    var dy=Math.abs(e.changedTouches[0].clientY-tStart.y);
+    if(dx<8&&dy<8) vToggleZoom(e.changedTouches[0].clientX,e.changedTouches[0].clientY);
+  },{passive:true});
+}
+
+// ── Share ────────────────────────────────────────────────
+function vShareCatalog(){
+  if(navigator.share){navigator.share({title:document.title,url:location.href}).catch(function(){});}
+  else{if(navigator.clipboard)navigator.clipboard.writeText(location.href);vToast('Link copiado!','ok');}
+}
+
+// ── Download PDF ──────────────────────────────────────────
+async function vDownloadPDF(){
+  try{
+    var resp=await fetch(PDF_FILENAME);
+    var ab=await resp.arrayBuffer();
+    var blob=new Blob([ab],{type:'application/pdf'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download=PDF_FILENAME;a.click();
+    setTimeout(function(){URL.revokeObjectURL(url);},5000);
+    vToast('PDF baixado!','ok');
+  }catch(e){vToast('Erro ao baixar PDF.','err');}
+}
+
+</script>
+</body>
+</html>
