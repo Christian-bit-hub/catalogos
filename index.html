@@ -219,41 +219,41 @@ canvas{display:block}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hs.in-cart{background:linear-gradient(135deg,#27ae60 0%,#1e8449 100%) !important;}.hs.in-cart:hover{box-shadow:0 5px 14px rgba(39,174,96,.45)}.hs-label{display:none}.hs-icon{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-shrink:0}.hs-icon svg{width:55%;height:55%}.v-zoomed #v-page-area{overflow:auto}.v-zoomed-area{overflow:hidden}#v-pdf-wrap{will-change:transform}.hs-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(20,15,10,.88);color:#fff;font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:500;white-space:nowrap;padding:5px 9px;border-radius:5px;pointer-events:none;opacity:0;transition:opacity .18s;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.35);max-width:180px;overflow:hidden;text-overflow:ellipsis;}.hs-tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(20,15,10,.88);}.hs:hover .hs-tip{opacity:1}
 @media (max-width:600px){
-  /* ── Topbar ── */
-  .topbar{height:48px;padding:0 8px;gap:0}
+  /* Topbar: flat flex, sem absolute */
+  .topbar{height:44px;padding:0 6px;position:relative}
   .tb-logo{display:none}
-  .tb-center{position:absolute;left:50%;transform:translateX(-50%);gap:0px}
-  .tb-icon-btn{width:28px;height:28px}
-  .tb-right{margin-left:auto}
-  .btn-tb-search{padding:0 7px;font-size:9px;height:24px;gap:4px}
-  .btn-tb-search svg{width:9px;height:9px}
-  .tb-divider{margin:0 2px}
-
-  /* ── Page area ── */
-  .page-area{padding:8px 4px}
-
-  /* ── Side nav buttons ── */
-  .side-btn{width:28px;height:44px;font-size:16px;opacity:.7}
-  #btn-prev-s{left:0px;border-radius:0 6px 6px 0}
-  #btn-next-s{right:0px;border-radius:6px 0 0 6px}
-
-  /* ── Cart panel ── */
+  .tb-center{position:static;transform:none;flex:1;justify-content:center;gap:0;overflow:hidden}
+  .tb-right{flex-shrink:0;margin-left:0}
+  .tb-icon-btn{width:26px;height:26px;flex-shrink:0}
+  .tb-icon-btn svg{width:13px;height:13px}
+  .tb-divider{margin:0 1px;height:14px}
+  /* Esconder ícones menos essenciais no mobile */
+  .tb-icon-btn.tb-hide-mobile{display:none}
+  /* Page input menor */
+  .tb-page input{width:28px;font-size:11px}
+  .tb-page span{font-size:11px}
+  /* Botão pesquisar — só ícone no mobile */
+  .btn-tb-search .btn-tb-search-txt{display:none}
+  .btn-tb-search{padding:0 7px;height:26px;gap:0;min-width:26px;justify-content:center}
+  /* Page area */
+  .page-area{padding:6px 2px}
+  /* Setas laterais */
+  .side-btn{width:24px;height:40px;font-size:15px;opacity:.65;z-index:5}
+  #btn-prev-s{left:0;border-radius:0 5px 5px 0}
+  #btn-next-s{right:0;border-radius:5px 0 0 5px}
+  /* Cart panel full width */
   #cart-panel{width:100%;right:-100%;border-radius:0}
   #cart-panel.open{right:0}
-
-  /* ── Modals ── */
+  /* Modals */
   .modal-box{width:96vw;max-height:90vh;border-radius:14px}
-  .order-box{width:96vw;max-height:92vh;border-radius:14px}
+  .order-box{width:96vw;max-height:92vh;border-radius:14px;margin:4vh auto}
   .of-row{flex-direction:column;gap:0}
   .seller-grid{grid-template-columns:1fr 1fr}
-
-  /* ── Search ── */
+  /* Search */
   .search-box{width:96vw;border-radius:12px}
-
-  /* ── Hotspot tooltip — abre para baixo em botões no topo ── */
-  .hs-tip{font-size:9px;padding:4px 7px;max-width:140px}
-}
-</style>
+  /* Tooltip acima */
+  .hs-tip{font-size:9px;padding:4px 7px;max-width:130px}
+}</style>
 </head>
 <body>
 
@@ -264,10 +264,10 @@ canvas{display:block}
 
   <!-- Center: icons + navigation -->
   <div class="tb-center">
-    <button class="tb-icon-btn" onclick="vDownloadPDF()" title="Baixar PDF">
+    <button class="tb-icon-btn" onclick="vDownloadPDF()" title="Baixar PDF" class="tb-icon-btn tb-hide-mobile">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
     </button>
-    <button class="tb-icon-btn" onclick="vShareCatalog()" title="Compartilhar">
+    <button class="tb-icon-btn" onclick="vShareCatalog()" title="Compartilhar" class="tb-icon-btn tb-hide-mobile">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
     </button>
     <div class="tb-divider"></div>
@@ -478,7 +478,7 @@ canvas{display:block}
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 emailjs.init('F59m7bx-Dc63S4zwl');
 var CART_IMG_D='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiByeT0iMjIiIGZpbGw9IiNDMDM5MkIiLz4KICA8ZyBmaWxsPSJ3aGl0ZSI+CiAgICA8IS0tIEFsw6dhIC0tPgogICAgPHJlY3QgeD0iMTgiIHk9IjI4IiB3aWR0aD0iMTAiIGhlaWdodD0iNiIgcng9IjMiLz4KICAgIDxyZWN0IHg9IjI1IiB5PSIyOCIgd2lkdGg9IjYiIGhlaWdodD0iMjAiIHJ4PSIzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAyOCAzNSkiLz4KICAgIDwhLS0gQ29ycG8gZG8gY2FycmluaG8gLS0+CiAgICA8cGF0aCBkPSJNMzQgMzggTDcyIDM4IEw2NyA2MiBMMzggNjIgWiIgcng9IjQiLz4KICAgIDwhLS0gUm9kYXMgLS0+CiAgICA8Y2lyY2xlIGN4PSI0MyIgY3k9IjcwIiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSI2MiIgY3k9IjcwIiByPSI2Ii8+CiAgPC9nPgo8L3N2Zz4=';
-var HOTSPOTS_D={"5":[{"id":"h_1772650546298","name":"ESTOJO BOX AMARELO","price":39.99,"unit":"un","sku":"31859","multiple":1,"size":38,"cx":0.3569157392686804,"cy":0.367103694874851},{"id":"h_1772650564599","name":"ESTOJO BOX CEREJA","price":39.99,"unit":"un","sku":"31863","multiple":1,"size":38,"cx":0.8163751987281398,"cy":0.6460071513706794},{"id":"h_1772650593385","name":"ESTOJO BOX ROSA CHICLETE","price":39.99,"unit":"un","sku":"33274","multiple":1,"size":38,"cx":0.39825119236883944,"cy":0.9261025029797377},{"id":"h_1772650614011","name":"ESTOJO BOX MAGENTA","price":39.99,"unit":"un","sku":"31853","multiple":1,"size":38,"cx":0.8227344992050873,"cy":0.929678188319428}]};
+var HOTSPOTS_D={"5":[{"id":"h_1772653884937","name":"ESTOJO AMARELO","price":39.99,"unit":"un","sku":"31859","multiple":1,"size":38,"cx":0.3648648648648648,"cy":0.3623361144219309},{"id":"h_1772653910466","name":"ESTOJO BOX CEREJA","price":39.99,"unit":"un","sku":"31863","multiple":1,"size":38,"cx":0.8259141494435612,"cy":0.6495828367103695}]};
 var PDF_FILENAME='Catálogo_Vini_Forte.pdf';
 var vPdf,vCurPage=1,vTotalPages=0,vRendering=false,vModalProduct=null,vCartItems=[],vSelectedSeller="";
 function showErr(msg){var l=document.getElementById("v-loading");if(l)l.style.display="none";var el=document.getElementById("vb-err");if(!el){el=document.createElement("div");el.id="vb-err";el.style.cssText="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#8b3a30;color:#fff;padding:14px 28px;border-radius:8px;font-size:13px;z-index:9999;max-width:90%;text-align:center;";document.body.appendChild(el);}el.innerHTML=msg;el.style.display="block";}
@@ -935,6 +935,8 @@ function vSetTitle(){
 }
 
 function vInitZoom(){
+  // Desabilitar zoom em dispositivos touch (mobile)
+  if('ontouchstart' in window || navigator.maxTouchPoints>0){return;}
   var area=document.getElementById('v-page-area');
   var wrap=document.getElementById('v-pdf-wrap');
   if(!area||!wrap)return;
