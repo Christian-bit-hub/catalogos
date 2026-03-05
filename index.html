@@ -272,10 +272,10 @@ canvas{display:block}
   .side-btn{display:none}
 
   /* ── Cart panel full width ── */
-  #cart-panel{width:100%;right:-100%;border-radius:0;display:flex;flex-direction:column;max-height:100vh}
+  #cart-panel{width:100%;right:-100%;border-radius:0;display:flex !important;flex-direction:column !important;height:100vh !important;max-height:100vh}
   #cart-panel.open{right:0}
-  .cart-items{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
-  .cart-footer{flex-shrink:0;display:flex !important;flex-direction:column;gap:8px}
+  .cart-items{flex:1 !important;overflow-y:auto !important;-webkit-overflow-scrolling:touch;min-height:0 !important}
+  .cart-footer{flex-shrink:0 !important;display:flex !important;flex-direction:column !important;gap:8px;padding-bottom:env(safe-area-inset-bottom,12px)}
   #v-cart-bot{flex-shrink:0}
 
   /* ── Modais ── */
@@ -295,7 +295,36 @@ canvas{display:block}
 button,a,[role=button],.hs,.btn-add-cart,.btn-cancel,.btn-finish,.btn-clear,.qty-btn,.tb-icon-btn,.btn-tb-search,.modal-close-x,.cart-close-btn,.order-close{
   touch-action:manipulation;
 }
-input,textarea,select{touch-action:manipulation;}</style>
+input,textarea,select{touch-action:manipulation;}
+/* ── Auto-detect ── */
+.btn-autodetect{width:100%;height:36px;margin-bottom:10px;background:linear-gradient(135deg,#2e6da4 0%,#1a4a7a 100%);color:#fff;border:none;border-radius:3px;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:opacity .15s}
+.btn-autodetect:hover{opacity:.88}
+.btn-autodetect:disabled{opacity:.45;cursor:not-allowed}
+/* Modal de revisão */
+.ad-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1200;display:flex;align-items:center;justify-content:center;padding:16px}
+.ad-modal{background:#fff;border-radius:10px;width:100%;max-width:540px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,.28)}
+.ad-header{padding:16px 20px 12px;border-bottom:1px solid #ede8e2;display:flex;align-items:center;justify-content:space-between}
+.ad-header h3{font-size:13px;font-weight:700;color:#2a2218;letter-spacing:.04em}
+.ad-header span{font-size:11px;color:#9a8a7a}
+.ad-close{background:none;border:none;font-size:18px;cursor:pointer;color:#9a8a7a;padding:0 4px;line-height:1}
+.ad-body{overflow-y:auto;padding:12px 16px;flex:1}
+.ad-item{border:1px solid #ede8e2;border-radius:6px;padding:10px 12px;margin-bottom:8px;background:#faf8f5}
+.ad-item-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ad-item-sku{background:#2e6da4;color:#fff;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;font-family:monospace}
+.ad-item-page{font-size:10px;color:#9a8a7a}
+.ad-item-skip{margin-left:auto;background:none;border:1px solid #ddd;border-radius:3px;font-size:10px;padding:2px 8px;cursor:pointer;color:#9a8a7a}
+.ad-item-skip.skipped{background:#f0e8e8;border-color:#e0c0c0;color:#c05050;text-decoration:line-through}
+.ad-fields{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ad-fields input{width:100%;padding:5px 8px;border:1px solid #ddd;border-radius:3px;font-size:12px;font-family:var(--sans)}
+.ad-fields input:focus{outline:none;border-color:#2e6da4}
+.ad-fields label{font-size:10px;color:#8a7a6a;display:block;margin-bottom:2px}
+.ad-footer{padding:12px 16px;border-top:1px solid #ede8e2;display:flex;gap:8px}
+.ad-footer button{flex:1;height:38px;border:none;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer}
+.ad-btn-cancel{background:none;border:1px solid #ddd !important;color:#8a7a6a}
+.ad-btn-apply{background:linear-gradient(135deg,#7a6a5a,#5a4a3a);color:#fff}
+.ad-empty{text-align:center;padding:32px 20px;color:#9a8a7a;font-size:13px}
+.ad-progress{font-size:11px;color:#2e6da4;padding:8px 16px;background:#f0f6ff;border-bottom:1px solid #dde8f5}
+</style>
 </head>
 <body>
 
@@ -517,7 +546,7 @@ input,textarea,select{touch-action:manipulation;}</style>
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 emailjs.init('F59m7bx-Dc63S4zwl');
 var CART_IMG_D='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiByeT0iMjIiIGZpbGw9IiNDMDM5MkIiLz4KICA8ZyBmaWxsPSJ3aGl0ZSI+CiAgICA8IS0tIEFsw6dhIC0tPgogICAgPHJlY3QgeD0iMTgiIHk9IjI4IiB3aWR0aD0iMTAiIGhlaWdodD0iNiIgcng9IjMiLz4KICAgIDxyZWN0IHg9IjI1IiB5PSIyOCIgd2lkdGg9IjYiIGhlaWdodD0iMjAiIHJ4PSIzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAyOCAzNSkiLz4KICAgIDwhLS0gQ29ycG8gZG8gY2FycmluaG8gLS0+CiAgICA8cGF0aCBkPSJNMzQgMzggTDcyIDM4IEw2NyA2MiBMMzggNjIgWiIgcng9IjQiLz4KICAgIDwhLS0gUm9kYXMgLS0+CiAgICA8Y2lyY2xlIGN4PSI0MyIgY3k9IjcwIiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSI2MiIgY3k9IjcwIiByPSI2Ii8+CiAgPC9nPgo8L3N2Zz4=';
-var HOTSPOTS_D={"5":[{"id":"h_1772711885230","name":"ESOTOJO BOX AMARELO","price":39.99,"unit":"un","sku":"31859","multiple":1,"size":36,"cx":0.37599364069952307,"cy":0.3706793802145411},{"id":"h_1772711909214","name":"ESTOJO BOX CEREJA","price":39.99,"unit":"un","sku":"31863","multiple":1,"size":36,"cx":0.829093799682035,"cy":0.6471990464839095},{"id":"h_1772711925599","name":"ESTOJO BOX MAGENTA","price":39.99,"unit":"un","sku":"31853","multiple":1,"size":36,"cx":0.8434022257551669,"cy":0.9225268176400476},{"id":"h_1772711945347","name":"ESTOJO BOX ROSA CHICLETE","price":39.99,"unit":"un","sku":"33274","multiple":1,"size":36,"cx":0.4014308426073132,"cy":0.9284862932061979}]};
+var HOTSPOTS_D={"5":[{"id":"h_1772713152589","name":"ESTOJO BOX AMARELO","price":39.99,"unit":"un","sku":"31859","multiple":1,"size":36,"cx":0.36327503974562797,"cy":0.3730631704410012},{"id":"h_1772713169363","name":"ESTOJO BOX CEREJA","price":39.99,"unit":"un","sku":"31863","multiple":1,"size":36,"cx":0.8211446740858505,"cy":0.6567342073897496},{"id":"h_1772713189398","name":"ESTOJO BOX ROSA CHICLETE","price":39.99,"unit":"un","sku":"33274","multiple":1,"size":36,"cx":0.3966613672496025,"cy":0.934445768772348},{"id":"h_1772713206174","name":"ESTOJO BOX MAGENTA","price":39.99,"unit":"un","sku":"31853","multiple":1,"size":36,"cx":0.8275039745627981,"cy":0.9356376638855781}]};
 var PDF_FILENAME='Catálogo_Vini_Forte.pdf';
 var vPdf,vCurPage=1,vTotalPages=0,vRendering=false,vModalProduct=null,vCartItems=[],vSelectedSeller="";
 function showErr(msg){var l=document.getElementById("v-loading");if(l)l.style.display="none";var el=document.getElementById("vb-err");if(!el){el=document.createElement("div");el.id="vb-err";el.style.cssText="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#8b3a30;color:#fff;padding:14px 28px;border-radius:8px;font-size:13px;z-index:9999;max-width:90%;text-align:center;";document.body.appendChild(el);}el.innerHTML=msg;el.style.display="block";}
