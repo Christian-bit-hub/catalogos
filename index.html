@@ -250,14 +250,17 @@ canvas{display:block}
   /* Pesquisar: só texto no mobile (sem ícone) */
   .btn-tb-search .btn-tb-search-txt{display:inline}
 
-  /* ── PDF: ocupa toda a largura ── */
+  /* ── PDF: ocupa toda a largura, centralizado ── */
   .page-area{
     padding:0;overflow:visible;
-    align-items:flex-start;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
   }
   .pdf-wrap{
     width:100% !important;
     box-shadow:none;
+    flex-shrink:0;
   }
   #v-canvas{
     width:100% !important;
@@ -505,7 +508,7 @@ canvas{display:block}
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 emailjs.init('F59m7bx-Dc63S4zwl');
 var CART_IMG_D='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiByeT0iMjIiIGZpbGw9IiNDMDM5MkIiLz4KICA8ZyBmaWxsPSJ3aGl0ZSI+CiAgICA8IS0tIEFsw6dhIC0tPgogICAgPHJlY3QgeD0iMTgiIHk9IjI4IiB3aWR0aD0iMTAiIGhlaWdodD0iNiIgcng9IjMiLz4KICAgIDxyZWN0IHg9IjI1IiB5PSIyOCIgd2lkdGg9IjYiIGhlaWdodD0iMjAiIHJ4PSIzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAyOCAzNSkiLz4KICAgIDwhLS0gQ29ycG8gZG8gY2FycmluaG8gLS0+CiAgICA8cGF0aCBkPSJNMzQgMzggTDcyIDM4IEw2NyA2MiBMMzggNjIgWiIgcng9IjQiLz4KICAgIDwhLS0gUm9kYXMgLS0+CiAgICA8Y2lyY2xlIGN4PSI0MyIgY3k9IjcwIiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSI2MiIgY3k9IjcwIiByPSI2Ii8+CiAgPC9nPgo8L3N2Zz4=';
-var HOTSPOTS_D={"5":[{"id":"h_1772667650456","name":"ESTOJO BOX AMARELO","price":39.99,"unit":"un","sku":"31859","multiple":1,"size":30,"cx":0.3775834658187599,"cy":0.3694874851013111},{"id":"h_1772667670231","name":"ESTOJO BOX CEREJA","price":39.99,"unit":"un","sku":"31863","multiple":1,"size":30,"cx":0.8386327503974562,"cy":0.6460071513706794},{"id":"h_1772667691444","name":"ESTOJO BOX ROSA CHICLETE","price":39.99,"unit":"un","sku":"33274","multiple":1,"size":30,"cx":0.3966613672496025,"cy":0.9272943980929678},{"id":"h_1772667711182","name":"ESTOJO BOX MAGENTA","price":39.99,"unit":"un","sku":"31853","multiple":1,"size":30,"cx":0.827503974562798,"cy":0.933253873659118}]};
+var HOTSPOTS_D={"5":[{"id":"h_1772669157206","name":"ESTOJO BOX AMARELO","price":39.99,"unit":"un","sku":"31859","multiple":1,"size":32,"cx":0.3744038155802862,"cy":0.36233611442193087},{"id":"h_1772669173639","name":"ESTOJO BOX CEREJA","price":39.99,"unit":"un","sku":"31863","multiple":1,"size":32,"cx":0.8306836248012718,"cy":0.6400476758045293},{"id":"h_1772669194771","name":"ESTOJO BOX ROSA CHICLETE","price":39.99,"unit":"un","sku":"33274","multiple":1,"size":32,"cx":0.40461049284578693,"cy":0.9117997616209773},{"id":"h_1772669213258","name":"ESTOJO BOX MAGENTA","price":39.99,"unit":"un","sku":"31853","multiple":1,"size":32,"cx":0.8370429252782193,"cy":0.9106078665077473}]};
 var PDF_FILENAME='Catálogo_Vini_Forte.pdf';
 var vPdf,vCurPage=1,vTotalPages=0,vRendering=false,vModalProduct=null,vCartItems=[],vSelectedSeller="";
 function showErr(msg){var l=document.getElementById("v-loading");if(l)l.style.display="none";var el=document.getElementById("vb-err");if(!el){el=document.createElement("div");el.id="vb-err";el.style.cssText="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#8b3a30;color:#fff;padding:14px 28px;border-radius:8px;font-size:13px;z-index:9999;max-width:90%;text-align:center;";document.body.appendChild(el);}el.innerHTML=msg;el.style.display="block";}
