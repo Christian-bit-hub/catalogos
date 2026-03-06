@@ -997,7 +997,7 @@ async function vSendOrder(){
   excelCsvHtml+='</tbody></table>';
 
   // ── 1. WhatsApp ────────────────────────────────────────
-  var waLinhas=['🛒 *Novo Pedido — Catálogo Vini Forte*',''];
+  var catTitle=PDF_FILENAME.replace(/\.pdf$/i,'').replace(/_/g,' ').replace(/-/g,' ');  var waLinhas=['🛒 *Novo Pedido — '+catTitle+'*',''];
   waLinhas.push('👤 *Cliente:* '+name);
   waLinhas.push('📱 *Telefone:* '+phone);
   if(clientEmail) waLinhas.push('📧 *E-mail:* '+clientEmail);
