@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>PAPELARIA CULTURAMA 2027 — Catálogo</title>
+<title>CATÁLOGO CULTURAMA 2027 — Catálogo</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -60,9 +60,9 @@ body{font-family:var(--sans);background:var(--bg);height:100vh;display:flex;flex
 .page-area{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
 .pdf-wrap{position:relative;box-shadow:0 4px 32px rgba(0,0,0,.18)}
 canvas{display:block}
-.hs-layer{position:absolute;inset:0;pointer-events:none}
-.hs{position:absolute;cursor:pointer;pointer-events:auto;user-select:none;transition:transform .13s,box-shadow .13s,background .4s;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#c0392b 0%,#96281b 100%);border-radius:50%;box-shadow:0 2px 7px rgba(0,0,0,.32);border:1.5px solid rgba(255,255,255,.22)}
-.hs-img{display:none}.hs-icon{width:20px;height:20px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}.hs-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;pointer-events:none;line-height:1.2}
+.hs-layer{position:absolute;inset:0;pointer-events:none;overflow:visible;z-index:10}
+@keyframes hsPulse{0%{box-shadow:0 3px 10px rgba(220,20,10,.5),0 0 0 0 rgba(232,22,10,.65);}70%{box-shadow:0 3px 10px rgba(220,20,10,.5),0 0 0 13px rgba(232,22,10,0);}100%{box-shadow:0 3px 10px rgba(220,20,10,.5),0 0 0 0 rgba(232,22,10,0);}}@keyframes hsRipple{to{transform:scale(2.8);opacity:0;}}.hs{position:absolute;cursor:pointer;pointer-events:auto;user-select:none;transition:transform .13s,background .3s;display:inline-flex;align-items:center;justify-content:center;overflow:visible;background:linear-gradient(135deg,#e8160a 0%,#b50d03 100%);border-radius:50%;border:2px solid rgba(255,255,255,.3);animation:hsPulse 1.8s ease-out infinite;filter:drop-shadow(0 3px 8px rgba(200,15,5,.55));}.hs:hover{transform:scale(1.18) translateY(-2px);filter:drop-shadow(0 5px 14px rgba(200,15,5,.7));animation:none;}.hs-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);width:100%;height:100%;transform:scale(0);animation:hsRipple .5s linear;pointer-events:none;}
+.hs-img{display:none}.hs-icon{width:100%;height:100%;background:none;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}.hs-label{display:none!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;pointer-events:none;line-height:1.2}
 .hs:hover .hs-img{transform:scale(1.12);filter:drop-shadow(0 4px 12px rgba(0,0,0,.45))}
 
 /* ── Side nav ── */
@@ -216,10 +216,8 @@ canvas{display:block}
 /* ── Badge ── */
 @keyframes badgePop{0%{transform:scale(1)}40%{transform:scale(1.5)}70%{transform:scale(.88)}100%{transform:scale(1)}}
 .badge-pop{animation:badgePop .35s cubic-bezier(.36,.07,.19,.97)}
-@keyframes hsPulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.6),0 2px 7px rgba(0,0,0,.32)}60%{box-shadow:0 0 0 9px rgba(192,57,43,0),0 2px 7px rgba(0,0,0,.32)}}
-.hs:not(.in-cart){animation:hsPulse 2.2s ease-in-out infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.hs.in-cart{background:linear-gradient(135deg,#27ae60 0%,#1e8449 100%) !important;animation:none !important;}.hs.in-cart:hover{box-shadow:0 5px 14px rgba(39,174,96,.45)}.hs-label{display:none}.hs-icon{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-shrink:0}.hs-icon svg{width:55%;height:55%}.v-zoomed #v-page-area{overflow:auto}.v-zoomed-area{overflow:hidden}#v-pdf-wrap{will-change:transform}.hs-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(20,15,10,.88);color:#fff;font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:500;white-space:nowrap;padding:5px 9px;border-radius:5px;pointer-events:none;opacity:0;transition:opacity .18s;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.35);max-width:180px;overflow:hidden;text-overflow:ellipsis;}.hs-tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(20,15,10,.88);}.hs:hover .hs-tip{opacity:1}
+.hs.in-cart{background:linear-gradient(135deg,#27ae60 0%,#1e8449 100%) !important;}.hs.in-cart:hover{box-shadow:0 5px 14px rgba(39,174,96,.45)}.hs-label{display:none}.hs-icon{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-shrink:0}.hs-icon svg{width:55%;height:55%}.v-zoomed #v-page-area{overflow:auto}.v-zoomed-area{overflow:hidden}#v-pdf-wrap{will-change:transform}.hs-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(20,15,10,.88);color:#fff;font-family:'Montserrat',Arial,sans-serif;font-size:10px;font-weight:500;white-space:nowrap;padding:5px 9px;border-radius:5px;pointer-events:none;opacity:0;transition:opacity .18s;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.35);max-width:180px;overflow:hidden;text-overflow:ellipsis;}.hs-tip::after{content:""position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(20,15,10,.88);}.hs:hover .hs-tip{opacity:1}
 
 /* ═══════════════════════════════════════════
    MOBILE — max-width: 600px
@@ -357,7 +355,7 @@ canvas{display:block}
   .search-box{width:96vw;border-radius:12px}
 
   /* ── Tooltip ── */
-  .hs-tip{font-size:9px;padding:4px 7px;max-width:130px}
+  .hs-tip{font-size:9px;padding:4px 7px;max-width:130px}\n  .hs{min-width:32px;min-height:32px;border-width:2px;animation-duration:2.2s;z-index:50;}\n  .hs-tip{bottom:auto;top:-38px;}\n  #v-pdf-wrap{overflow:visible;}\n  #v-hs-layer{overflow:visible;clip-path:none;}
 
   /* ── iOS: font >= 16px previne zoom automático em inputs ── */
   input,textarea,select{font-size:16px !important}
@@ -430,7 +428,7 @@ canvas{display:block}
 .pub-link-box{background:#f0f6f0;border:1px solid #c8dcc8;border-radius:4px;padding:8px 10px;font-size:11px;font-family:monospace;color:#2a5a2a;word-break:break-all;margin:8px 0;cursor:pointer;transition:background .15s}
 .pub-link-box:hover{background:#e0f0e0}
 .pub-link-copy-hint{font-size:10px;color:#7a9a7a;text-align:center;margin-top:2px}
-
+.hs-esgotado{opacity:.28!important;filter:grayscale(.8) brightness(.8);animation:none!important;cursor:pointer;overflow:visible!important;transition:opacity .2s;}.hs-esgotado:hover{opacity:.45!important;}.v-m-esg-banner{display:none;align-items:center;gap:14px;background:linear-gradient(135deg,#fff2f2 0%,#fff8f8 100%);border:1.5px solid #e8160a;border-left:5px solid #e8160a;border-radius:10px;padding:14px 16px;margin:0 0 14px 0;color:#c0392b;box-shadow:0 3px 12px rgba(232,22,10,.12);}\n@keyframes flyArc{0%{transform:translate(0,0) scale(1);opacity:1;}60%{opacity:1;}100%{transform:translate(var(--dx),var(--dy)) scale(.15);opacity:0;}}\n@keyframes cartBounce{0%,100%{transform:scale(1);}30%{transform:scale(1.35);}60%{transform:scale(.9);}}\n@keyframes hsGreenFlash{0%{box-shadow:0 0 0 0 rgba(39,174,96,.0);}50%{box-shadow:0 0 0 14px rgba(39,174,96,.45);}100%{box-shadow:0 0 0 0 rgba(39,174,96,.0);}}\n.cart-fly{position:fixed;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff6b6b,#e8160a);box-shadow:0 2px 12px rgba(232,22,10,.5);pointer-events:none;z-index:9999;animation:flyArc .65s cubic-bezier(.4,0,.2,1) forwards;}\n.cart-btn-bounce{animation:cartBounce .45s ease !important;}\n.hs-green-flash{animation:hsGreenFlash .6s ease forwards !important;}
 :root{--bar:#333d7c;--bar-dark:#2b3469;--bar-muted:#333d7ccc}</style>
 </head>
 <body>
@@ -472,7 +470,7 @@ canvas{display:block}
   <!-- Right: search button -->
   <div class="tb-right">
     <button class="btn-tb-search" onclick="vOpenSearch()">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       Pesquisar
     </button>
   </div>
@@ -544,9 +542,10 @@ canvas{display:block}
         <div class="modal-total-value" id="v-m-total">R$ 0,00</div>
       </div>
     </div>
+    <div id="v-m-esg-banner" class="v-m-esg-banner"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg><div><div style="font-size:14px;font-weight:800;">Produto Esgotado</div><div style="font-size:11px;opacity:.75;margin-top:2px;">Este item não está disponível no momento</div></div></div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="vCloseModal()">Cancelar</button>
-      <button class="btn-add-cart" onclick="vAddToCart()">
+      <button id="v-m-add" class="btn-add-cart" onclick="vAddToCart()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         Adicionar ao Carrinho
       </button>
@@ -604,7 +603,16 @@ canvas{display:block}
       </div>
       <div class="of">
         <label>Vendedor responsável</label>
-        <div class="seller-grid" id="v-seller-grid">\n        </div>
+        <div class="seller-grid" id="v-seller-grid">
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Christian')">Christian</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Carlos')">Carlos</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Diego')">Diego</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Márcio')">Márcio</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Ana Televendas')">Ana Televendas</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Vinicius')">Vinicius</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Bruno')">Bruno</button>
+          <button type="button" class="seller-btn" onclick="vSelectSeller(this,'Escritório')">Escritório</button>
+        </div>
         <input type="hidden" id="v-ord-seller" value="">
       </div>
       <hr class="odivider">
@@ -644,13 +652,12 @@ canvas{display:block}
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 emailjs.init('F59m7bx-Dc63S4zwl');
 var CART_IMG_D='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiByeT0iMjIiIGZpbGw9IiNDMDM5MkIiLz4KICA8ZyBmaWxsPSJ3aGl0ZSI+CiAgICA8IS0tIEFsw6dhIC0tPgogICAgPHJlY3QgeD0iMTgiIHk9IjI4IiB3aWR0aD0iMTAiIGhlaWdodD0iNiIgcng9IjMiLz4KICAgIDxyZWN0IHg9IjI1IiB5PSIyOCIgd2lkdGg9IjYiIGhlaWdodD0iMjAiIHJ4PSIzIiB0cmFuc2Zvcm09InJvdGF0ZSgxMiAyOCAzNSkiLz4KICAgIDwhLS0gQ29ycG8gZG8gY2FycmluaG8gLS0+CiAgICA8cGF0aCBkPSJNMzQgMzggTDcyIDM4IEw2NyA2MiBMMzggNjIgWiIgcng9IjQiLz4KICAgIDwhLS0gUm9kYXMgLS0+CiAgICA8Y2lyY2xlIGN4PSI0MyIgY3k9IjcwIiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSI2MiIgY3k9IjcwIiByPSI2Ii8+CiAgPC9nPgo8L3N2Zz4=';
-var HOTSPOTS_D={"4":[{"id":"h_1772900978815_ig1","name":"Caderno 1 Matéria - Mickey Icônico","price":12.99,"unit":"un","sku":"7071802111","multiple":1,"size":28,"cx":0.3471577889919972,"cy":0.5903144116214707},{"id":"h_1772900978815_ho7","name":"Caderno 1 Matéria - Princesas Colagem","price":12.99,"unit":"un","sku":"7071802114","multiple":1,"size":28,"cx":0.3471577889919972,"cy":0.9172787418783926},{"id":"h_1772900978815_24l","name":"Caderno 1 Matéria - Minnie Poá Azul","price":12.99,"unit":"un","sku":"7071802110","multiple":1,"size":28,"cx":0.7171157580685267,"cy":0.5903144116214707},{"id":"h_1772900978815_umg","name":"Caderno 1 Matéria - Stitch e Angel Tropical","price":12.99,"unit":"un","sku":"7071802107","multiple":1,"size":28,"cx":0.7171157580685267,"cy":0.9172787418783926}],"6":[{"id":"h_1772900978820_afx","name":"Caderno 1 Matéria - Lotso Cute","price":12.99,"unit":"un","sku":"7071802108","multiple":1,"size":28,"cx":0.34484859023377407,"cy":0.311542766869781},{"id":"h_1772900978820_o9p","name":"Caderno 1 Matéria - Pooh Happiness","price":12.99,"unit":"un","sku":"7071802112","multiple":1,"size":28,"cx":0.34484859023377407,"cy":0.6193590744634095},{"id":"h_1772900978820_2xs","name":"Caderno 1 Matéria - Marie Laços","price":12.99,"unit":"un","sku":"7071802109","multiple":1,"size":28,"cx":0.34484859023377407,"cy":0.9333243913100284},{"id":"h_1772900978820_xpq","name":"Caderno 1 Matéria - Toy Story Trio","price":12.99,"unit":"un","sku":"7071802113","multiple":1,"size":28,"cx":0.7131812628091845,"cy":0.311542766869781},{"id":"h_1772900978820_sy0","name":"Caderno 1 Matéria - Vingadores Vibe","price":12.99,"unit":"un","sku":"707180332","multiple":1,"size":28,"cx":0.7002460361244198,"cy":0.6193590744634095},{"id":"h_1772900978820_xpx","name":"Caderno 1 Matéria - Homem-Aranha Lua Cheia","price":12.99,"unit":"un","sku":"707180331","multiple":1,"size":28,"cx":0.7002460361244198,"cy":0.9333243913100284}],"8":[{"id":"h_1772900978824_iwr","name":"Caderno 10 Matérias - Minnie Joy","price":22.9,"unit":"un","sku":"707190295","multiple":1,"size":28,"cx":0.7040125924781114,"cy":0.6191389611469431},{"id":"h_1772900978824_mws","name":"Caderno 10 Matérias - Stitch e Angel Vibe","price":22.9,"unit":"un","sku":"707190291","multiple":1,"size":28,"cx":0.7040125924781114,"cy":0.933004192946822},{"id":"h_1772900978824_hog","name":"Caderno 10 Matérias - Mickey The Original","price":22.9,"unit":"un","sku":"707190294","multiple":1,"size":28,"cx":0.3340598310699577,"cy":0.6191389611469431},{"id":"h_1772900978824_pyp","name":"Caderno 10 Matérias - Princesas Beauty","price":22.9,"unit":"un","sku":"707190297","multiple":1,"size":28,"cx":0.3340598310699577,"cy":0.9330041929468219}],"10":[{"id":"h_1772900978829_6ci","name":"Caderno 10 Matérias - Lotso Quadros","price":22.9,"unit":"un","sku":"707190292","multiple":1,"size":28,"cx":0.3312634080661743,"cy":0.3112483222273693},{"id":"h_1772900978829_wpa","name":"Caderno 10 Matérias - Pooh Garden","price":22.9,"unit":"un","sku":"707190296","multiple":1,"size":28,"cx":0.3312634080661743,"cy":0.6208785043176662},{"id":"h_1772900978829_71j","name":"Caderno 10 Matérias - Marie Coração","price":22.9,"unit":"un","sku":"707190293","multiple":1,"size":28,"cx":0.3312634080661743,"cy":0.9305227018969224},{"id":"h_1772900978829_g53","name":"Caderno 10 Matérias - Toy Story Gang","price":22.9,"unit":"un","sku":"707190298","multiple":1,"size":28,"cx":0.6950392028235647,"cy":0.3112483222273693},{"id":"h_1772900978829_ct3","name":"Caderno 10 Matérias - Vingadores Heróis e Ícones","price":22.9,"unit":"un","sku":"707190367","multiple":1,"size":28,"cx":0.6983494597464037,"cy":0.6208785043176662},{"id":"h_1772900978829_q4i","name":"Caderno 10 Matérias - Homem-Aranha Find Your Power","price":22.9,"unit":"un","sku":"707190366","multiple":1,"size":28,"cx":0.700153252440885,"cy":0.9305227018969224}],"12":[{"id":"h_1772900978833_s7l","name":"Caderno 1 Matéria - Mickey e Minnie Sweet SORTIDO","price":9.9,"unit":"un","sku":"707000236","multiple":4,"size":28,"cx":0.7920989591382822,"cy":0.3054252930905462}],"13":[{"id":"h_1772900978834_c2a","name":"Caderno 1 Matéria - Princesas Magia SORTIDO","price":9.9,"unit":"un","sku":"707000237","multiple":4,"size":28,"cx":0.7148529421646431,"cy":0.1432137215075604}],"15":[{"id":"h_1772900978837_4w6","name":"Caderno 1 Matéria - Frozen SORTIDO","price":9.9,"unit":"un","sku":"707000235","multiple":4,"size":28,"cx":0.6658054415094848,"cy":0.1460935514140802}],"16":[{"id":"h_1772900978839_ho2","name":"Caderno 1 Matéria - Stitch e Angel Vibes SORTIDO","price":9.9,"unit":"un","sku":"707000238","multiple":4,"size":28,"cx":0.9010220469160525,"cy":0.1460935514140802}],"17":[{"id":"h_1772900978840_68j","name":"Caderno 1 Matéria - Homem-Aranha Poderes SORTIDO","price":9.9,"unit":"un","sku":"707000313","multiple":4,"size":28,"cx":0.7962015938825017,"cy":0.1411277007685089}],"18":[{"id":"h_1772900978842_777","name":"Caderno 1 Matéria - Vingadores Heróis SORTIDO","price":9.9,"unit":"un","sku":"707000312","multiple":4,"size":28,"cx":0.6658054415094848,"cy":0.1411277007685089}],"20":[{"id":"h_1772900978845_vo3","name":"Caderno 10 Matérias - Mickey e Minnie Life SORTIDO","price":21,"unit":"un","sku":"707010223","multiple":4,"size":28,"cx":0.7857882730027752,"cy":0.29533205050541045}],"21":[{"id":"h_1772900978847_upm","name":"Caderno 10 Matérias - Princesas Flower SORTIDO","price":21,"unit":"un","sku":"707010224","multiple":4,"size":28,"cx":0.7869957801087227,"cy":0.1494614498331136}],"23":[{"id":"h_1772900978849_z6f","name":"Caderno 10 Matérias - Stitch e Angel Happy SORTIDO","price":21,"unit":"un","sku":"707010225","multiple":4,"size":28,"cx":0.8870927099362315,"cy":0.16966337645060514}],"24":[{"id":"h_1772900978851_gyy","name":"Caderno 10 Matérias - Vingadores Avante SORTIDO","price":21,"unit":"un","sku":"707010306","multiple":4,"size":28,"cx":0.7954444660963991,"cy":0.16966337645060514}],"25":[{"id":"h_1772900978852_g1l","name":"Caderno 10 Matérias - Homem-Aranha Contornos SORTIDO","price":21,"unit":"un","sku":"707010307","multiple":4,"size":28,"cx":0.795424643358711,"cy":0.17471379871479642}],"28":[{"id":"h_1772900978859_5c0","name":"CADERNO TOUCH - Pooh","price":16.2,"unit":"un","sku":"707310202","multiple":1,"size":28,"cx":0.7419516325200415,"cy":0.5607791991827911},{"id":"h_1772900978859_geg","name":"CADERNO TOUCH - Marie","price":16.2,"unit":"un","sku":"707310201","multiple":1,"size":28,"cx":0.30682574133679175,"cy":0.560779199182791},{"id":"h_1772900978859_n10","name":"CADERNO TOUCH - Princesas","price":16.2,"unit":"un","sku":"707310203","multiple":1,"size":28,"cx":0.30682574133679175,"cy":0.9073707966598961},{"id":"h_1772900978859_7hb","name":"CADERNO TOUCH - Homem-Aranha","price":16.2,"unit":"un","sku":"707310301","multiple":1,"size":28,"cx":0.744370678475195,"cy":0.9244751689650665}],"30":[{"id":"h_1772900978863_3dd","name":"Caderno com elástico - Princesas Be True","price":15.5,"unit":"un","sku":"707060214","multiple":1,"size":28,"cx":0.7602255088395975,"cy":0.5628978845217307},{"id":"h_1772900978863_v7d","name":"Caderno com elástico - Mickey e Amigos Stay Sweet","price":15.5,"unit":"un","sku":"707060212","multiple":1,"size":28,"cx":0.3697914916778102,"cy":0.5628978845217307},{"id":"h_1772900978863_xqy","name":"Caderno com elástico - Stitch Adorable","price":15.5,"unit":"un","sku":"707060213","multiple":1,"size":28,"cx":0.3697914916778102,"cy":0.8996402142797751}],"31":[{"id":"h_1772900978865_az8","name":"Caderno com elástico - Princesas Best Buds","price":8.2,"unit":"un","sku":"707050233","multiple":1,"size":28,"cx":0.7848040236797724,"cy":0.5662970221762937},{"id":"h_1772900978865_fem","name":"Caderno com elástico - Mickey e Amigos Charming","price":8.2,"unit":"un","sku":"707050231","multiple":1,"size":28,"cx":0.3697965313568834,"cy":0.5662970221762937},{"id":"h_1772900978865_xw4","name":"Caderno com elástico - Marvel Logo Azul","price":8.2,"unit":"un","sku":"707050306","multiple":1,"size":28,"cx":0.7832921199578015,"cy":0.901728016724275},{"id":"h_1772900978865_a63","name":"Caderno com elástico - Stitch Better","price":8.2,"unit":"un","sku":"707050232","multiple":1,"size":28,"cx":0.3682846276349125,"cy":0.901728016724275}],"33":[{"id":"h_1772900978867_r9q","name":"Caderno com elástico - Stitch","price":21.9,"unit":"un","sku":"707080204","multiple":1,"size":28,"cx":0.8007742626949514,"cy":0.3525110168786896},{"id":"h_1772900978867_jib","name":"Caderno com elástico - Princesas","price":21.9,"unit":"un","sku":"707080205","multiple":1,"size":28,"cx":0.375076939100518,"cy":0.5737450260722898},{"id":"h_1772900978867_7ep","name":"Caderno com elástico - Marvel","price":21.9,"unit":"un","sku":"707080303","multiple":1,"size":28,"cx":0.375076939100518,"cy":0.9313272517787359}],"34":[{"id":"h_1772900978868_cmv","name":"Caderno com elástico - Stitch e Angel","price":10.9,"unit":"un","sku":"707090206","multiple":1,"size":28,"cx":0.7602255088395975,"cy":0.607729632137215},{"id":"h_1772900978868_sl1","name":"Caderno com elástico - Princesas","price":10.9,"unit":"un","sku":"707090205","multiple":1,"size":28,"cx":0.3697914916778102,"cy":0.607729632137215},{"id":"h_1772900978868_wa8","name":"Caderno com elástico - Marvel","price":10.9,"unit":"un","sku":"707090303","multiple":1,"size":28,"cx":0.7643177282470657,"cy":0.9330120324507951}],"35":[{"id":"h_1772900978870_726","name":"Produto 99654","price":0,"unit":"un","sku":"99654","multiple":1,"size":28,"cx":0.9059468213064199,"cy":0.8832519687845205}]};
+var HOTSPOTS_D={"4":[{"id":"h_1773082274256_hoc","name":"Caderno 1 Matéria - Mickey Icônico","price":12.99,"unit":"un","sku":"7071802111","multiple":1,"size":28,"cx":0.3471577889919972,"cy":0.5903144116214707},{"id":"h_1773082274256_lez","name":"Caderno 1 Matéria - Princesas Colagem","price":12.99,"unit":"un","sku":"7071802114","multiple":1,"size":28,"cx":0.3471577889919972,"cy":0.9172787418783926},{"id":"h_1773082274256_frc","name":"Caderno 1 Matéria - Minnie Poá Azul","price":12.99,"unit":"un","sku":"7071802110","multiple":1,"size":28,"cx":0.7171157580685267,"cy":0.5903144116214707},{"id":"h_1773082274256_vbv","name":"Caderno 1 Matéria - Stitch e Angel Tropical","price":12.99,"unit":"un","sku":"7071802107","multiple":1,"size":28,"cx":0.7171157580685267,"cy":0.9172787418783926}],"6":[{"id":"h_1773082274260_0nq","name":"Caderno 1 Matéria - Lotso Cute","price":12.99,"unit":"un","sku":"7071802108","multiple":1,"size":28,"cx":0.34484859023377407,"cy":0.311542766869781},{"id":"h_1773082274260_xj4","name":"Caderno 1 Matéria - Pooh Happiness","price":12.99,"unit":"un","sku":"7071802112","multiple":1,"size":28,"cx":0.34484859023377407,"cy":0.6193590744634095},{"id":"h_1773082274260_0og","name":"Caderno 1 Matéria - Marie Laços","price":12.99,"unit":"un","sku":"7071802109","multiple":1,"size":28,"cx":0.34484859023377407,"cy":0.9333243913100284},{"id":"h_1773082274260_0wz","name":"Caderno 1 Matéria - Toy Story Trio","price":12.99,"unit":"un","sku":"7071802113","multiple":1,"size":28,"cx":0.7131812628091845,"cy":0.311542766869781},{"id":"h_1773082274261_yie","name":"Caderno 1 Matéria - Vingadores Vibe","price":12.99,"unit":"un","sku":"707180332","multiple":1,"size":28,"cx":0.7002460361244198,"cy":0.6193590744634095},{"id":"h_1773082274261_3pn","name":"Caderno 1 Matéria - Homem-Aranha Lua Cheia","price":12.99,"unit":"un","sku":"707180331","multiple":1,"size":28,"cx":0.7002460361244198,"cy":0.9333243913100284}],"8":[{"id":"h_1773082274264_2z7","name":"Caderno 10 Matérias - Minnie Joy","price":22.9,"unit":"un","sku":"707190295","multiple":1,"size":28,"cx":0.7040125924781114,"cy":0.6191389611469431},{"id":"h_1773082274264_3vl","name":"Caderno 10 Matérias - Stitch e Angel Vibe","price":22.9,"unit":"un","sku":"707190291","multiple":1,"size":28,"cx":0.7040125924781114,"cy":0.933004192946822},{"id":"h_1773082274264_gl0","name":"Caderno 10 Matérias - Mickey The Original","price":22.9,"unit":"un","sku":"707190294","multiple":1,"size":28,"cx":0.3340598310699577,"cy":0.6191389611469431},{"id":"h_1773082274264_dmb","name":"Caderno 10 Matérias - Princesas Beauty","price":22.9,"unit":"un","sku":"707190297","multiple":1,"size":28,"cx":0.3340598310699577,"cy":0.9330041929468219}],"10":[{"id":"h_1773082274269_ydb","name":"Caderno 10 Matérias - Lotso Quadros","price":22.9,"unit":"un","sku":"707190292","multiple":1,"size":28,"cx":0.3312634080661743,"cy":0.3112483222273693},{"id":"h_1773082274269_l75","name":"Caderno 10 Matérias - Pooh Garden","price":22.9,"unit":"un","sku":"707190296","multiple":1,"size":28,"cx":0.3312634080661743,"cy":0.6208785043176662},{"id":"h_1773082274269_fga","name":"Caderno 10 Matérias - Marie Coração","price":22.9,"unit":"un","sku":"707190293","multiple":1,"size":28,"cx":0.3312634080661743,"cy":0.9305227018969224},{"id":"h_1773082274269_uqd","name":"Caderno 10 Matérias - Toy Story Gang","price":22.9,"unit":"un","sku":"707190298","multiple":1,"size":28,"cx":0.6950392028235647,"cy":0.3112483222273693},{"id":"h_1773082274269_l1e","name":"Caderno 10 Matérias - Vingadores Heróis e Ícones","price":22.9,"unit":"un","sku":"707190367","multiple":1,"size":28,"cx":0.6983494597464037,"cy":0.6208785043176662},{"id":"h_1773082274269_gq1","name":"Caderno 10 Matérias - Homem-Aranha Find Your Power","price":22.9,"unit":"un","sku":"707190366","multiple":1,"size":28,"cx":0.700153252440885,"cy":0.9305227018969224}],"12":[{"id":"h_1773082274278_q80","name":"Caderno 1 Matéria - Mickey e Minnie Sweet SORTIDO","price":9.9,"unit":"un","sku":"707000236","multiple":4,"size":28,"cx":0.7920989591382822,"cy":0.3054252930905462}],"13":[{"id":"h_1773082274286_gn2","name":"Caderno 1 Matéria - Princesas Magia SORTIDO","price":9.9,"unit":"un","sku":"707000237","multiple":4,"size":28,"cx":0.7148529421646431,"cy":0.1432137215075604}],"15":[{"id":"h_1773082274291_ux7","name":"Caderno 1 Matéria - Frozen SORTIDO","price":9.9,"unit":"un","sku":"707000235","multiple":4,"size":28,"cx":0.6658054415094848,"cy":0.1460935514140802}],"16":[{"id":"h_1773082274295_f19","name":"Caderno 1 Matéria - Stitch e Angel Vibes SORTIDO","price":9.9,"unit":"un","sku":"707000238","multiple":4,"size":28,"cx":0.9010220469160525,"cy":0.1460935514140802}],"17":[{"id":"h_1773082274298_kv8","name":"Caderno 1 Matéria - Homem-Aranha Poderes SORTIDO","price":9.9,"unit":"un","sku":"707000313","multiple":4,"size":28,"cx":0.7962015938825017,"cy":0.1411277007685089}],"18":[{"id":"h_1773082274302_ixo","name":"Caderno 1 Matéria - Vingadores Heróis SORTIDO","price":9.9,"unit":"un","sku":"707000312","multiple":4,"size":28,"cx":0.6658054415094848,"cy":0.1411277007685089}],"20":[{"id":"h_1773082274308_byb","name":"Caderno 10 Matérias - Mickey e Minnie Life SORTIDO","price":21,"unit":"un","sku":"707010223","multiple":4,"size":28,"cx":0.7857882730027752,"cy":0.29533205050541045}],"21":[{"id":"h_1773082274311_9xg","name":"Caderno 10 Matérias - Princesas Flower SORTIDO","price":21,"unit":"un","sku":"707010224","multiple":4,"size":28,"cx":0.7869957801087227,"cy":0.1494614498331136}],"23":[{"id":"h_1773082274315_r2g","name":"Caderno 10 Matérias - Stitch e Angel Happy SORTIDO","price":21,"unit":"un","sku":"707010225","multiple":4,"size":28,"cx":0.8870927099362315,"cy":0.16966337645060514}],"24":[{"id":"h_1773082274317_m3c","name":"Caderno 10 Matérias - Vingadores Avante SORTIDO","price":21,"unit":"un","sku":"707010306","multiple":4,"size":28,"cx":0.7954444660963991,"cy":0.16966337645060514}],"25":[{"id":"h_1773082274320_4nt","name":"Caderno 10 Matérias - Homem-Aranha Contornos SORTIDO","price":21,"unit":"un","sku":"707010307","multiple":4,"size":28,"cx":0.795424643358711,"cy":0.17471379871479642}],"28":[{"id":"h_1773082274329_clh","name":"CADERNO TOUCH - Pooh","price":16.2,"unit":"un","sku":"707310202","multiple":1,"size":28,"cx":0.7419516325200415,"cy":0.5607791991827911},{"id":"h_1773082274329_zf9","name":"CADERNO TOUCH - Marie","price":16.2,"unit":"un","sku":"707310201","multiple":1,"size":28,"cx":0.30682574133679175,"cy":0.560779199182791},{"id":"h_1773082274329_5kl","name":"CADERNO TOUCH - Princesas","price":16.2,"unit":"un","sku":"707310203","multiple":1,"size":28,"cx":0.30682574133679175,"cy":0.9073707966598961},{"id":"h_1773082274329_b46","name":"CADERNO TOUCH - Homem-Aranha","price":16.2,"unit":"un","sku":"707310301","multiple":1,"size":28,"cx":0.744370678475195,"cy":0.9244751689650665}],"30":[{"id":"h_1773082274334_2dw","name":"Caderno com elástico - Princesas Be True","price":15.5,"unit":"un","sku":"707060214","multiple":1,"size":28,"cx":0.7602255088395975,"cy":0.5628978845217307},{"id":"h_1773082274334_76o","name":"Caderno com elástico - Mickey e Amigos Stay Sweet","price":15.5,"unit":"un","sku":"707060212","multiple":1,"size":28,"cx":0.3697914916778102,"cy":0.5628978845217307},{"id":"h_1773082274334_mha","name":"Caderno com elástico - Stitch Adorable","price":15.5,"unit":"un","sku":"707060213","multiple":1,"size":28,"cx":0.3697914916778102,"cy":0.8996402142797751}],"31":[{"id":"h_1773082274337_3hd","name":"Caderno com elástico - Princesas Best Buds","price":8.2,"unit":"un","sku":"707050233","multiple":1,"size":28,"cx":0.7848040236797724,"cy":0.5662970221762937},{"id":"h_1773082274337_jej","name":"Caderno com elástico - Mickey e Amigos Charming","price":8.2,"unit":"un","sku":"707050231","multiple":1,"size":28,"cx":0.3697965313568834,"cy":0.5662970221762937},{"id":"h_1773082274337_csi","name":"Caderno com elástico - Marvel Logo Azul","price":8.2,"unit":"un","sku":"707050306","multiple":1,"size":28,"cx":0.7832921199578015,"cy":0.901728016724275},{"id":"h_1773082274337_f11","name":"Caderno com elástico - Stitch Better","price":8.2,"unit":"un","sku":"707050232","multiple":1,"size":28,"cx":0.3682846276349125,"cy":0.901728016724275}],"33":[{"id":"h_1773082274342_yoy","name":"Caderno com elástico - Stitch","price":21.9,"unit":"un","sku":"707080204","multiple":1,"size":28,"cx":0.8007742626949514,"cy":0.3525110168786896},{"id":"h_1773082274342_6sw","name":"Caderno com elástico - Princesas","price":21.9,"unit":"un","sku":"707080205","multiple":1,"size":28,"cx":0.375076939100518,"cy":0.5737450260722898},{"id":"h_1773082274342_b2z","name":"Caderno com elástico - Marvel","price":21.9,"unit":"un","sku":"707080303","multiple":1,"size":28,"cx":0.375076939100518,"cy":0.9313272517787359}],"34":[{"id":"h_1773082274344_cfx","name":"Caderno com elástico - Stitch e Angel","price":10.9,"unit":"un","sku":"707090206","multiple":1,"size":28,"cx":0.7602255088395975,"cy":0.607729632137215},{"id":"h_1773082274344_olj","name":"Caderno com elástico - Princesas","price":10.9,"unit":"un","sku":"707090205","multiple":1,"size":28,"cx":0.3697914916778102,"cy":0.607729632137215},{"id":"h_1773082274344_pej","name":"Caderno com elástico - Marvel","price":10.9,"unit":"un","sku":"707090303","multiple":1,"size":28,"cx":0.7643177282470657,"cy":0.9330120324507951}],"35":[]};
 var PDF_FILENAME='https://pub-15ed4e1e580242819d8f5841d7acd6a6.r2.dev/PAPELARIA CULTURAMA 2027.pdf';
-var SELLERS_LIST=["Christian","Carlos","Diego","Márcio","Ana Televendas","Vinicius","Bruno","Escritório"];
-var CATALOG_DISPLAY_NAME='CATÁLOGO CULTURAMA 2027';
+var CATALOG_DISPLAY_NAME="CATÁLOGO CULTURAMA 2027";
 var vPdf,vCurPage=1,vTotalPages=0,vRendering=false,vModalProduct=null,vCartItems=[],vSelectedSeller="";
 function showErr(msg){var l=document.getElementById("v-loading");if(l)l.style.display="none";var el=document.getElementById("vb-err");if(!el){el=document.createElement("div");el.id="vb-err";el.style.cssText="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#8b3a30;color:#fff;padding:14px 28px;border-radius:8px;font-size:13px;z-index:9999;max-width:90%;text-align:center;";document.body.appendChild(el);}el.innerHTML=msg;el.style.display="block";}
-(async function(){var loadEl=document.getElementById('v-loading');if(loadEl)loadEl.style.display='flex';try{var resp=await fetch(PDF_FILENAME);if(!resp.ok)throw new Error('PDF nao encontrado.');var ab=await resp.arrayBuffer();vPdf=await pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise;vTotalPages=vPdf.numPages;document.getElementById('v-total').textContent=vTotalPages;document.getElementById('v-pg-in').max=vTotalPages;if(loadEl)loadEl.style.display='none';vSetTitle();vInitZoom();vInitSwipe();vInitResizeObserver();await vRender(1);}catch(e){showErr('Erro: '+e.message);console.error(e);}})();
+(async function(){var loadEl=document.getElementById('v-loading');if(loadEl)loadEl.style.display='flex';try{var resp=await fetch(PDF_FILENAME);if(!resp.ok)throw new Error('PDF nao encontrado.');var ab=await resp.arrayBuffer();vPdf=await pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise;vTotalPages=vPdf.numPages;document.getElementById('v-total').textContent=vTotalPages;document.getElementById('v-pg-in').max=vTotalPages;if(loadEl)loadEl.style.display='none';vSetTitle();vInitZoom();vInitSwipe();await vRender(1);}catch(e){showErr('Erro: '+e.message);console.error(e);}})();
 // ── Render ──────────────────────────────────────────────
 var vZoomed    = false;
 var vZoomFactor= 1.8;
@@ -751,7 +758,7 @@ function vDrawHs(){
   (HOTSPOTS_D[vCurPage]||[]).forEach(function(h){
     var el=document.createElement('div');
     el.className='hs'+(vCartItems.some(function(ci){return ci.id===h.id;})?' in-cart':'');
-    el.id='v-hs-'+h.id;
+    el.id='v-hs-'+h.id;el.classList.add('v-hs-pid-'+h.id);
     var sz=h.size||28;
     el.style.width=sz+'px';el.style.height=sz+'px';
     var rect=cv.getBoundingClientRect();
@@ -763,17 +770,23 @@ function vDrawHs(){
     var icon=document.createElement('span');icon.className='hs-icon';
     icon.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
     el.appendChild(icon);
+    if(h.esgotado){
+      el.classList.add('hs-esgotado');
+    }
     // Label
-    var lbl=document.createElement('span');lbl.className='hs-label';lbl.textContent=h.name;
+    var lbl=document.createElement('span');lbl.className='hs-label';
+    lbl.textContent=h.name;
     el.appendChild(lbl);
     // Tooltip
     var tip=document.createElement('div');tip.className='hs-tip';
     var tipText=h.name;
     if(h.sku) tipText+=' · '+h.sku;
     if(h.price) tipText+=' · R$ '+vFmt(h.price);
+    if(h.esgotado)tipText+=' · 🚫 ESGOTADO';
     tip.textContent=tipText;
+    if(h.esgotado)tip.style.background='rgba(140,10,5,.9)';
     el.appendChild(tip);
-    el.addEventListener('click',function(){vOpenModal(h);});layer.appendChild(el);
+    el.addEventListener('click',function(e){if(!this.classList.contains('hs-esgotado')){var r=document.createElement('span');r.className='hs-ripple';this.appendChild(r);setTimeout(function(){r.remove();},500);}if(this.classList.contains('in-cart')){vConfirmAddMore(h,this);}else{vOpenModal(h);}});layer.appendChild(el);
   });
 }
 
@@ -785,6 +798,10 @@ function vOpenModal(h){
   document.getElementById('v-m-img').src=CART_IMG_D;
   document.getElementById('v-m-name').textContent=h.name||'—';
   document.getElementById('v-m-code').textContent=h.sku?'Cód. '+h.sku:'Sem código';
+  var esgBanner=document.getElementById('v-m-esg-banner');
+  if(esgBanner)esgBanner.style.display=h.esgotado?'flex':'none';
+  var addBtn=document.getElementById('v-m-add');
+  if(addBtn){addBtn.disabled=!!h.esgotado;addBtn.style.opacity=h.esgotado?'.4':'';}
   document.getElementById('v-m-price').textContent=vFmt(h.price);
   document.getElementById('v-m-unit').textContent=h.unit||'un';
   document.getElementById('v-m-sku').textContent=h.sku||'—';
@@ -821,12 +838,34 @@ function vUpdateTotal(){
 // ── Cart ──────────────────────────────────────────────────
 function vAddToCart(){
   if(!vModalProduct)return;
+  if(vModalProduct.esgotado)return;
   var qty=parseInt(document.getElementById('v-qty').value)||1;
   var ex=vCartItems.find(function(c){return c.id===vModalProduct.id;});
   if(ex){ex.qty+=qty;}
   else{vCartItems.push({cartId:'ci_'+Date.now(),id:vModalProduct.id,name:vModalProduct.name,price:+vModalProduct.price||0,unit:vModalProduct.unit||'un',sku:vModalProduct.sku||'',multiple:parseInt(vModalProduct.multiple)||1,qty:qty});}
-  vUpdateBadge(true);vToast('\u2713 '+vModalProduct.name+' inserido no carrinho!','ok');// Mark all hotspot buttons for this product green
-  (HOTSPOTS_D[vCurPage]||[]).forEach(function(h){if(h.id===vModalProduct.id){var el=document.getElementById('v-hs-'+h.id);if(el)el.classList.add('in-cart');}});vCloseModal();vRenderCart();
+  var addBtn=document.getElementById('v-m-add');
+  var badge=document.getElementById('v-badge');
+  if(addBtn&&badge){
+    var sr=addBtn.getBoundingClientRect(),cr=badge.getBoundingClientRect();
+    var fly=document.createElement('div');fly.className='cart-fly';
+    fly.style.left=(sr.left+sr.width/2-11)+'px';
+    fly.style.top=(sr.top+sr.height/2-11)+'px';
+    var dx=cr.left+cr.width/2-(sr.left+sr.width/2);
+    var dy=cr.top+cr.height/2-(sr.top+sr.height/2);
+    fly.style.setProperty('--dx',dx+'px');fly.style.setProperty('--dy',dy+'px');
+    document.body.appendChild(fly);
+    setTimeout(function(){fly.remove();},700);
+    var cartBtn=badge.parentElement;
+    if(cartBtn){cartBtn.classList.add('cart-btn-bounce');setTimeout(function(){cartBtn.classList.remove('cart-btn-bounce');},500);}
+  }
+  (HOTSPOTS_D[vCurPage]||[]).forEach(function(h){
+    if(h.id===vModalProduct.id){
+      var el=document.getElementById('v-hs-'+h.id);
+      if(el){el.classList.add('in-cart','hs-green-flash');setTimeout(function(){el.classList.remove('hs-green-flash');},700);}
+    }
+  });
+  vUpdateBadge(true);vToast('\u2713 '+vModalProduct.name+' adicionado!','ok');
+  vCloseModal();vRenderCart();
 }
 function vCartTotal(){return vCartItems.reduce(function(s,i){return s+i.qty*i.price;},0);}
 function vCartTotalQty(){return vCartItems.length;}function vCartTotalItems(){return vCartItems.reduce(function(s,i){return s+i.qty;},0);}
@@ -893,7 +932,14 @@ function vSet(inp){
 }
 function vRm(btn){
   var id=btn.dataset.id;
+  var removed=vCartItems.find(function(x){return x.cartId===id;});
   vCartItems=vCartItems.filter(function(x){return x.cartId!==id;});
+  // Se ainda houver outra entrada do mesmo produto, nao tirar in-cart
+  if(removed&&!vCartItems.some(function(x){return x.id===removed.id;})){
+    document.querySelectorAll('.v-hs-pid-'+removed.id).forEach(function(el){
+      el.classList.remove('in-cart');
+    });
+  }
   vUpdateBadge(false);vRenderCart();
 }
 function vClearCart(){
@@ -905,7 +951,6 @@ function vClearCart(){
 
 // ── Order modal ───────────────────────────────────────────
 function vFinishOrder(){
-  vRenderSellerGrid();
   if(!vCartItems.length)return;
   document.getElementById('v-ord-summary').innerHTML=vCartItems.map(function(i){
     return '<div class="order-summary-item">'
@@ -925,12 +970,6 @@ function vFinishOrder(){
 function vCloseOrderModal(){document.getElementById('order-modal').classList.remove('open');}
 function vOrderBackToCart(){vCloseOrderModal();setTimeout(function(){vOpenCart();},50);}
 function vOrderClose(){vCloseOrderModal();vCloseCart();}
-function vRenderSellerGrid(){
-  var grid=document.getElementById('v-seller-grid');
-  if(!grid)return;
-  var sl=typeof SELLERS_LIST!=='undefined'?SELLERS_LIST:[];
-  grid.innerHTML=sl.map(function(n){return '<button type="button" class="seller-btn" onclick="vSelectSeller(this,''+n.replace(/'/g,"\\'")+'')">'+n+'</button>';}).join('');
-}
 function vSelectSeller(btn,name){
   document.querySelectorAll('.seller-btn').forEach(function(b){b.classList.remove('selected');});
   btn.classList.add('selected');
@@ -1128,15 +1167,6 @@ function escV(s){var d=document.createElement('div');d.textContent=s;return d.in
   },{passive:false});
 })();
 
-function vInitResizeObserver(){
-  if(typeof ResizeObserver==='undefined')return;
-  var cv=document.getElementById('v-canvas');
-  if(!cv)return;
-  var ro=new ResizeObserver(function(){
-    if(!vRendering) vDrawHs();
-  });
-  ro.observe(cv);
-}
 function vInitSwipe(){
   var wrap=document.getElementById('v-pdf-wrap');
   if(!wrap)return;
@@ -1162,11 +1192,7 @@ function vInitSwipe(){
 function vSetTitle(){
   var el=document.getElementById('v-cat-title');
   if(!el)return;
-  if(typeof CATALOG_DISPLAY_NAME!=='undefined'&&CATALOG_DISPLAY_NAME){
-    el.textContent=CATALOG_DISPLAY_NAME;
-  } else {
-    el.textContent=PDF_FILENAME.replace(/\.pdf$/i,'').replace(/_/g,' ').replace(/-/g,' ');
-  }
+  if(typeof CATALOG_DISPLAY_NAME!=='undefined'&&CATALOG_DISPLAY_NAME){el.textContent=CATALOG_DISPLAY_NAME;}else{el.textContent=PDF_FILENAME.replace(/\.pdf$/i,'').replace(/_/g,' ').replace(/-/g,' ');}
 }
 
 function vInitZoom(){
@@ -1258,6 +1284,48 @@ async function vDownloadPDF(){
   }catch(e){vToast('Erro ao baixar PDF.','err');}
 }
 
+function vInitResizeObserver(){
+  if(typeof ResizeObserver==='undefined')return;
+  var cv=document.getElementById('v-canvas');
+  if(!cv)return;
+  var ro=new ResizeObserver(function(){if(!vRendering)vDrawHs();});
+  ro.observe(cv);
+}
+
+function vConfirmAddMore(h){
+  var pop=document.getElementById('v-add-more-pop');
+  if(!pop){
+    pop=document.createElement('div');
+    pop.id='v-add-more-pop';
+    pop.style.cssText='position:fixed;inset:0;z-index:9998;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.48)';
+    var box=document.createElement('div');
+    box.style.cssText='background:#fff;border-radius:16px;padding:28px;max-width:300px;width:88%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.25)';
+    var t=document.createElement('div');t.id='v-amp-title';
+    t.style.cssText='font-size:16px;font-weight:700;color:#3a2e26;margin-bottom:6px';
+    t.textContent='Adicionar mais?';
+    var sub=document.createElement('div');sub.id='v-amp-sub';
+    sub.style.cssText='font-size:13px;color:#7a6a5a;margin-bottom:20px;line-height:1.4';
+    var row=document.createElement('div');row.style.cssText='display:flex;gap:10px';
+    var btnNo=document.createElement('button');btnNo.id='v-amp-no';
+    btnNo.style.cssText='flex:1;padding:11px;border:2px solid #d5ccc2;border-radius:10px;background:#fff;color:#7a6a5a;font-weight:600;font-size:14px;cursor:pointer';
+    btnNo.textContent='Não';
+    var btnYes=document.createElement('button');btnYes.id='v-amp-yes';
+    btnYes.style.cssText='flex:1;padding:11px;border:none;border-radius:10px;background:linear-gradient(135deg,#e8160a,#b50d03);color:#fff;font-weight:700;font-size:14px;cursor:pointer';
+    btnYes.textContent='Sim, adicionar';
+    row.appendChild(btnNo);row.appendChild(btnYes);
+    box.appendChild(t);box.appendChild(sub);box.appendChild(row);
+    pop.appendChild(box);document.body.appendChild(pop);
+    btnNo.onclick=function(){pop.style.display='none';};
+    pop.onclick=function(e){if(e.target===pop)pop.style.display='none';};
+  }
+  pop.style.display='flex';
+  var sub2=document.getElementById('v-amp-sub');
+  if(sub2)sub2.textContent='“'+h.name+'” já está no carrinho.';
+  document.getElementById('v-amp-yes').onclick=function(){
+    pop.style.display='none';
+    vOpenModal(h);
+  };
+}
 </script>
 </body>
 </html>
